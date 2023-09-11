@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='utf-8'?>
+<materials>
+  <material id="126" name="rod">
+    <density units="g/cm3" value="4.3" />
+    <nuclide ao="0.5145" name="Zr90" />
+    <nuclide ao="0.1122" name="Zr91" />
+    <nuclide ao="0.1715" name="Zr92" />
+    <nuclide ao="0.1738" name="Zr94" />
+    <nuclide ao="0.028" name="Zr96" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material id="127" name="zircaloy">
+    <density units="g/cm3" value="6.0" />
+    <nuclide ao="0.5145" name="Zr90" />
+    <nuclide ao="0.1122" name="Zr91" />
+    <nuclide ao="0.1715" name="Zr92" />
+    <nuclide ao="0.1738" name="Zr94" />
+    <nuclide ao="0.028" name="Zr96" />
+  </material>
+  <material id="128" name="heavy water">
+    <density units="g/cm3" value="1.1" />
+    <nuclide ao="2.0" name="H2" />
+    <nuclide ao="1.0" name="O16" />
+    <sab name="c_D_in_D2O" />
+  </material>
+  <material depletable="true" id="200" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="201" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="202" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="203" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="204" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="205" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="206" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="207" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="208" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="209" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="210" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="211" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="212" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="213" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="214" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="215" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="216" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="217" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="218" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="219" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+  <material depletable="true" id="220" name="fuel">
+    <density units="g/cm3" value="9.7" />
+    <nuclide ao="0.60611" name="Th232" />
+    <nuclide ao="0.019695" name="U235" />
+    <nuclide ao="0.3742" name="U238" />
+    <nuclide ao="1.999242" name="O16" />
+    <nuclide ao="0.000758" name="O17" />
+  </material>
+</materials>
