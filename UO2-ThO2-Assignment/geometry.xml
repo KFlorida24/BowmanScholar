@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
 <geometry>
-  <cell id="2" material="void" name="fuel_Geom" universe="2" />
-  <cell id="3" material="4" name="graph_Geom" region="2 -3" universe="2" />
-  <cell id="4" material="5" name="moderator" region="4 -5 6 -7 3" universe="2" />
-  <surface coeffs="0.0 0.0 0.0 0.4" id="2" type="sphere" />
-  <surface coeffs="0.0 0.0 0.0 0.5" id="3" type="sphere" />
-  <surface boundary="reflective" coeffs="-1.0" id="4" name="minimum x" type="x-plane" />
-  <surface boundary="reflective" coeffs="1.0" id="5" name="maximum x" type="x-plane" />
-  <surface boundary="reflective" coeffs="-1.0" id="6" name="minimum y" type="y-plane" />
-  <surface boundary="reflective" coeffs="1.0" id="7" name="maximum y" type="y-plane" />
+  <cell id="6" material="void" name="fuel_Geom" universe="4" />
+  <cell id="7" material="4" name="graph_Geom" region="9 -10" universe="4" />
+  <cell id="8" material="5" name="moderator" region="11 -12 13 -14 10" universe="4" />
+  <surface coeffs="0.0 0.0 0.0 0.4" id="9" type="sphere" />
+  <surface coeffs="0.0 0.0 0.0 0.5" id="10" type="sphere" />
+  <surface boundary="reflective" coeffs="-1.0" id="11" name="minimum x" type="x-plane" />
+  <surface boundary="reflective" coeffs="1.0" id="12" name="maximum x" type="x-plane" />
+  <surface boundary="reflective" coeffs="-1.0" id="13" name="minimum y" type="y-plane" />
+  <surface boundary="reflective" coeffs="1.0" id="14" name="maximum y" type="y-plane" />
 </geometry>
