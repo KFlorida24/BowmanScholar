@@ -2,6 +2,34 @@
 <geometry>
   <cell id="1" material="38" region="-1 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53" universe="1" />
   <cell id="2" material="38" region="1 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74" universe="1" />
+  <cell id="4" material="100" region="-3" universe="2" />
+  <cell id="5" material="37" region="3" universe="2" />
+  <cell id="6" material="101" region="-4" universe="3" />
+  <cell id="7" material="37" region="4" universe="3" />
+  <cell id="8" material="102" region="-5" universe="4" />
+  <cell id="9" material="37" region="5" universe="4" />
+  <cell id="10" material="103" region="-6" universe="5" />
+  <cell id="11" material="37" region="6" universe="5" />
+  <cell id="12" material="104" region="-7" universe="6" />
+  <cell id="13" material="37" region="7" universe="6" />
+  <cell id="14" material="105" region="-8" universe="7" />
+  <cell id="15" material="37" region="8" universe="7" />
+  <cell id="16" material="106" region="-9" universe="8" />
+  <cell id="17" material="37" region="9" universe="8" />
+  <cell id="18" material="107" region="-10" universe="9" />
+  <cell id="19" material="37" region="10" universe="9" />
+  <cell id="20" material="108" region="-11" universe="10" />
+  <cell id="21" material="37" region="11" universe="10" />
+  <cell id="22" material="109" region="-12" universe="11" />
+  <cell id="23" material="37" region="12" universe="11" />
+  <cell id="24" material="110" region="-13" universe="12" />
+  <cell id="25" material="37" region="13" universe="12" />
+  <cell id="26" material="111" region="-14" universe="13" />
+  <cell id="27" material="37" region="14" universe="13" />
+  <cell id="28" material="112" region="-15" universe="14" />
+  <cell id="29" material="37" region="15" universe="14" />
+  <cell id="30" material="113" region="-16" universe="15" />
+  <cell id="31" material="37" region="16" universe="15" />
   <cell id="32" material="200" region="-17" universe="16" />
   <cell id="33" material="37" region="17" universe="16" />
   <cell id="34" material="201" region="-18" universe="17" />
@@ -47,6 +75,20 @@
   <cell id="74" material="36" region="-38" universe="37" />
   <cell id="75" material="37" region="38" universe="37" />
   <cell fill="37" id="76" region="-39" universe="1" />
+  <cell fill="2" id="100" region="-40" translation="3.0755 0.0 0.0" universe="1" />
+  <cell fill="3" id="101" region="-41" translation="2.77092975323389 1.3344094396560497 0.0" universe="1" />
+  <cell fill="4" id="102" region="-42" translation="1.917542885616535 2.404522724330425 0.0" universe="1" />
+  <cell fill="5" id="103" region="-43" translation="0.684363132382645 2.9983907939151986 0.0" universe="1" />
+  <cell fill="6" id="104" region="-44" translation="-0.684363132382644 2.9983907939151986 0.0" universe="1" />
+  <cell fill="7" id="105" region="-45" translation="-1.9175428856165357 2.404522724330425 0.0" universe="1" />
+  <cell fill="8" id="106" region="-46" translation="-2.7709297532338897 1.3344094396560502 0.0" universe="1" />
+  <cell fill="9" id="107" region="-47" translation="-3.0755 3.7664012307776845e-16 0.0" universe="1" />
+  <cell fill="10" id="108" region="-48" translation="-2.7709297532338906 -1.3344094396560484 0.0" universe="1" />
+  <cell fill="11" id="109" region="-49" translation="-1.917542885616533 -2.404522724330427 0.0" universe="1" />
+  <cell fill="12" id="110" region="-50" translation="-0.6843631323826428 -2.9983907939151986 0.0" universe="1" />
+  <cell fill="13" id="111" region="-51" translation="0.6843631323826443 -2.9983907939151986 0.0" universe="1" />
+  <cell fill="14" id="112" region="-52" translation="1.9175428856165344 -2.404522724330426 0.0" universe="1" />
+  <cell fill="15" id="113" region="-53" translation="2.7709297532338897 -1.3344094396560506 0.0" universe="1" />
   <cell fill="1" id="126" region="-75" universe="38" />
   <cell id="127" material="37" region="75 -76" universe="38" />
   <cell id="128" material="void" region="76 -77" universe="38" />
@@ -74,6 +116,20 @@
   <cell fill="35" id="219" region="-73" translation="3.5780270121754136 -2.4394575114445183 0.0" universe="1" />
   <cell fill="36" id="220" region="-74" translation="4.138108035456882 -1.2764372827864228 0.0" universe="1" />
   <surface coeffs="0.0 0.0 3.703" id="1" type="z-cylinder" />
+  <surface coeffs="0.0 0.0 0.5281999999999999" id="3" type="z-cylinder" />
+  <surface coeffs="0.0 0.0 0.5281999999999999" id="4" type="z-cylinder" />
+  <surface coeffs="0.0 0.0 0.5281999999999999" id="5" type="z-cylinder" />
+  <surface coeffs="0.0 0.0 0.5281999999999999" id="6" type="z-cylinder" />
+  <surface coeffs="0.0 0.0 0.5281999999999999" id="7" type="z-cylinder" />
+  <surface coeffs="0.0 0.0 0.5281999999999999" id="8" type="z-cylinder" />
+  <surface coeffs="0.0 0.0 0.5281999999999999" id="9" type="z-cylinder" />
+  <surface coeffs="0.0 0.0 0.5281999999999999" id="10" type="z-cylinder" />
+  <surface coeffs="0.0 0.0 0.5281999999999999" id="11" type="z-cylinder" />
+  <surface coeffs="0.0 0.0 0.5281999999999999" id="12" type="z-cylinder" />
+  <surface coeffs="0.0 0.0 0.5281999999999999" id="13" type="z-cylinder" />
+  <surface coeffs="0.0 0.0 0.5281999999999999" id="14" type="z-cylinder" />
+  <surface coeffs="0.0 0.0 0.5281999999999999" id="15" type="z-cylinder" />
+  <surface coeffs="0.0 0.0 0.5281999999999999" id="16" type="z-cylinder" />
   <surface coeffs="0.0 0.0 0.5281999999999999" id="17" type="z-cylinder" />
   <surface coeffs="0.0 0.0 0.5281999999999999" id="18" type="z-cylinder" />
   <surface coeffs="0.0 0.0 0.5281999999999999" id="19" type="z-cylinder" />
