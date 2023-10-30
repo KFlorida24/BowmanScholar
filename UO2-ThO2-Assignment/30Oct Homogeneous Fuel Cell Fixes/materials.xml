@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
 <materials>
-  <material depletable="true" id="16" name="fuel(0.04)-graph(0.6266666666666666)-hel_Cool(0.33333333333333337)">
-    <density units="g/cm3" value="1.8343259999999997" />
-    <nuclide ao="0.0" name="Th232" />
-    <nuclide ao="0.0006394310829673931" name="U235" />
-    <nuclide ao="0.011996049518694997" name="U238" />
-    <nuclide ao="0.025261383509028717" name="O16" />
-    <nuclide ao="9.57769429606009e-06" name="O17" />
-    <nuclide ao="0.9619726216863037" name="C0" />
-    <nuclide ao="2.418730174181079e-10" name="He3" />
-    <nuclide ao="0.00012093626683603654" name="He4" />
+  <material depletable="true" id="4" name="fuel(0.04)-graph(0.6266666666666666)-hel_Cool(0.33333333333333337)">
+    <density units="g/cm3" value="1.8157939802955663" />
+    <nuclide ao="0.007414803054684888" name="Th232" />
+    <nuclide ao="0.0" name="U235" />
+    <nuclide ao="0.004833353102313111" name="U238" />
+    <nuclide ao="0.024487028211628993" name="O16" />
+    <nuclide ao="9.284102367004485e-06" name="O17" />
+    <nuclide ao="0.9631344489586201" name="C0" />
+    <nuclide ao="2.421651407714537e-10" name="He3" />
+    <nuclide ao="0.00012108232822058608" name="He4" />
   </material>
 </materials>
