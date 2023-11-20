@@ -3,7 +3,9 @@ import math
 import numpy as np
 import pandas as pd
 from pathlib import Path
+import matplotlib
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 def matMixFunInput():
@@ -11,7 +13,7 @@ def matMixFunInput():
     while True:
         try:
             print('Please select whether you want to do one run with user inputs (1) or a continuous run (2).')
-            userInputTF = int(input())
+            userInputTF = int(input() or 2)
         except ValueError:
             print("Please type in a valid number (1 or 2)")
             continue
@@ -341,7 +343,7 @@ def matMixFunInput():
                 
                 sp = openmc.StatePoint('statepoint.100.h5');
                 keffVal = sp.keff
-                print("{:.2f}".format(enrichVals[i]*100), "% Enrichment", "{:.2f}".format((1-pctLEUVals[j])*100), "% Thorium", keffVal)
+                print("{:.2f}".format(enrichVals[i]*100), "% Enrichment,", "{:.2f}".format(pctLEUVals[j]*100), "% Uranium (","{:.2f}".format((1-pctLEUVals[j])*100), "% Thorium ):", keffVal)
                 sep = '+/-'
             
                 keffValFloat = float(str(keffVal).split(sep, 1)[0])
@@ -355,7 +357,11 @@ def matMixFunInput():
         keffMatValsOnly = keffMat[1:,1:]
         print(keffMat)
         print(keffMatValsOnly)
-        plt.imshow(keffMatValsOnly, cmap='hot', interpolation='nearest')
+        
+        sns.heatmap(keffMatValsOnly, center=1, cmap = "PiYG", xticklabels = enrichVals, yticklabels = pctLEUVals)
+        plt.xlabel("Enrichment Values (%)")
+        plt.ylabel("Uranium Concentration (%)")
+        plt.title("Reactivity as a Function of Enrichment and Uranium Concentration in TOX Fuel")
+        plt.savefig('heatmap.png',bbox_inches='tight')
         plt.show()
-        plt.savefig('heatmap.png')
 

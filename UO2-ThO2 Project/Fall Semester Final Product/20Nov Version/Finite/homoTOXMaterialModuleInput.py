@@ -12,7 +12,7 @@ def matMixFunInput():
 
     while True:
         try:
-            print('Please select whether you want to do one run with user inputs (1) or a continuous run (2).')
+            print('Please select whether you want to do one run with user inputs (1), a continuous run (2), or Burn-Up (3).')
             userInputTF = int(input() or 2)
         except ValueError:
             print("Please type in a valid number (1 or 2)")
@@ -26,6 +26,8 @@ def matMixFunInput():
         print("Single Run, User Input")
     elif userInputTF == 2:
         print("Continuous Run")
+    elif userInputTF == 3:
+        print("Burn-Up")
 
     if userInputTF == 1:
         while True:
@@ -364,4 +366,6 @@ def matMixFunInput():
         plt.title("Reactivity as a Function of Enrichment and Uranium Concentration in TOX Fuel")
         plt.savefig('heatmap.png',bbox_inches='tight')
         plt.show()
+    elif userInputTF == 3:
+        While True
 
