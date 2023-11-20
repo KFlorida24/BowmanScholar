@@ -7,9 +7,41 @@ import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+def build_model(radius, length, fuel):
+    
+    
+    materials = openmc.Materials([fuel])
+    
+    # create sphere with radius parameter
+    sphere_radius = openmc.Sphere(x0=0,y0=0,z0=0,r=radius, boundary_type='vacuum', name='BCM')
+    
+    # create core cell
+    core_cell = openmc.Cell(name='Cylindrical Core')
+    core_cell.fill = fuel
+    core_cell.region = -sphere_radius
+    
+    # create universe geometry
+    root_universe = openmc.Universe(name='root universe')
+    root_universe.add_cells([core_cell])
+    
+    geometry = openmc.Geometry(root_universe)
+    # define criticality settings
+    settings = openmc.Settings()
+    settings.run_mode = 'eigenvalue' # keff calculation
+    settings.particles = 10000 # particles per batch
+    settings.batches = 1050 # number of batches
+    settings.inactive = 50 # inactive batches
+    
+    # settings.output = {'tallies': False}
+    
+    
+    model = openmc.model.Model(geometry,materials,settings)
+    
+    return model
 
 def matMixFunInput():
 
+    # Run Mode
     while True:
         try:
             print('Please select whether you want to do one run with user inputs (1), a continuous run (2), or Burn-Up (3).')
@@ -28,6 +60,27 @@ def matMixFunInput():
         print("Continuous Run")
     elif userInputTF == 3:
         print("Burn-Up")
+    
+    #Geometry Definitions
+        try:
+            print('Please input diameter of core (cylinder) in m. (Press Enter key for default for default value of 4.6 m)')
+            cyl_Diameter = float(input()*100 or 4.6*100)
+            cyl_Radius = cyl_Diameter/2
+        except ValueError:
+            print("Please type in a valid number")
+            continue
+        else:
+            break
+        try:
+            print('Please input length of core (cylinder) in m. (Press Enter key for default for default value of 23.3 m)')
+            cyl_Length = float(input()*100 or 23.3*100)
+        except ValueError:
+            print("Please type in a valid number")
+            continue
+        else:
+            print("Cylinder with diameter of", cyl_Diameter/100, "m and length", cyl_Length/100, "generated.")
+            break
+
 
     if userInputTF == 1:
         while True:
@@ -213,35 +266,22 @@ def matMixFunInput():
                 totalVolFrac = fuelVolFrac + graphVolFrac + hel_CoolVolFrac # Total Volume
             
                 # Parameters
-                # Cube
-                matCubeL = 1 # [cm]
-                cubeVol = matCubeL**3 # [cm^3]
-                # Sphere
-                matSphereRad = 1 # [cm]
-                sphereVol = (4/3)*math.pi*matSphereRad**3
+                # Cylinder
+                cylinderVol = math.pi*cyl_Radius**2 #[m^3]
             
                 # Volume Output
-                #Cube
-                fuelCubeVol = fuelVolFrac*cubeVol
-                graphCubeVol = graphVolFrac*cubeVol
-                hel_CoolCubeVol = hel_CoolVolFrac*cubeVol
-                totalCubeVol = fuelCubeVol + graphCubeVol + hel_CoolCubeVol
-                #Sphere
-                fuelSphereVol = fuelVolFrac*sphereVol
-                graphSphereVol = graphVolFrac*sphereVol
-                hel_CoolSphereVol = hel_CoolVolFrac*sphereVol
-                totalSphereVol = fuelSphereVol + graphSphereVol + hel_CoolSphereVol
+                # Cylinder
+                fuelCylinderVol = fuelVolFrac*cylinderVol
+                graphCylinderVol = graphVolFrac*cylinderVol
+                hel_CoolCylinderVol = hel_CoolVolFrac*cylinderVol
+                totalCylinderVol = fuelCylinderVol + graphCylinderVol + hel_CoolCylinderVol
+                
                 # Mass Output
-                #Cube
-                fuelCubeMass = UThMixMassRho*graphCubeVol
-                graphCubeMass = graphMassRho*graphCubeVol
-                hel_CoolCubeMass = he_CoolMassRho*graphCubeVol
-                totalCubeMass = fuelCubeMass + graphCubeMass + hel_CoolCubeMass
-                #Sphere
-                fuelSphereMass = UThMixMassRho*graphSphereVol
-                graphSphereMass = graphMassRho*graphSphereVol
-                hel_CoolSphereMass = he_CoolMassRho*graphSphereVol
-                totalSphereMass = fuelSphereMass + graphSphereMass + hel_CoolSphereMass
+                #Cylinder
+                fuelCylinderMass = UThMixMassRho*graphCylinderVol
+                graphCylinderMass = graphMassRho*graphCylinderVol
+                hel_CoolCylinderMass = he_CoolMassRho*graphCylinderVol
+                totalCylinderMass = fuelCylinderMass + graphCylinderMass + hel_CoolCylinderMass
         
             
                 ## Define Materials ##
@@ -279,71 +319,9 @@ def matMixFunInput():
             
                 materials.export_to_xml()
         
-        
-                ## Define Universe Geometry ##
-                l_cube = 2.0;
-                universeCube = openmc.model.RectangularParallelepiped(-l_cube, l_cube, -l_cube, l_cube, -l_cube, l_cube)
-            
-                insideCube = -universeCube
-                outsideCube = +universeCube
-            
-                cell = openmc.Cell()
-                cell.region = insideCube
-            
-                universe = openmc.Universe()
-                universe.add_cell(cell)
-            
-
-            
-            
-                ## Define Bounding Geometry ##
-                matBox = openmc.model.RectangularParallelepiped(-matCubeL/2, matCubeL/2, 
-                                                            -matCubeL/2, matCubeL/2, 
-                                                            -matCubeL/2, matCubeL/2,
-                                                            boundary_type='reflective')
-            
-                material_region = -matBox
-            
-                material_Geom = openmc.Cell(name='material_Geom')
-                #material_Geom.fill = materials #<<(SRB) This probably isn't correct.  Needs to be a material.
-                material_Geom.fill = mixMat
-                material_Geom.region = material_region
-            
-                root_universe = openmc.Universe(cells=[material_Geom])
-            
-                geometry = openmc.Geometry()
-                geometry.root_universe = root_universe
-                geometry.export_to_xml()
-            
-            
-                ## Cross Sections ##
-            
-            
-                ## Source ##
-                # create a point source
-                point = openmc.stats.Point((0,0,0))
-                source = openmc.Source(space=point)
-            
-                settings = openmc.Settings()
-                settings.source = source
-                settings.batches = 100
-                settings.inactive = 10
-                settings.particles = 1000
-            
-                settings.export_to_xml()
-
-                ## Tallies ##
-            
-                cell_filter = openmc.CellFilter(material_Geom)
-            
-                tally = openmc.Tally()
-                tally.filters = [cell_filter]
-            
-                tally.nuclides = ['U235']
-                tally.scores = ['total','fission','absorption','(n,gamma)']
-            
+                core_model = build_model(cylinder_Radius, cylinder_Length, mixMat)
+                
                 tallies = openmc.Tallies([tally])
-                tallies.export_to_xml()
 
                 openmc.run(output=False)
                 
