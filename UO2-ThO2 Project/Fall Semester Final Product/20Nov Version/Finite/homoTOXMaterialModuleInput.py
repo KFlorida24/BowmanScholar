@@ -370,7 +370,7 @@ def matMixFunInput():
         print(reactMat)
         print(reactMatValsOnly)
         
-        sns.heatmap(reactMatValsOnly, center=0, cmap = "PiYG", xticklabels = "{:.2f}".format(enrichVals*100), yticklabels = "{:.2f}".format(pctLEUVals*100))
+        sns.heatmap(reactMatValsOnly, center=0, cmap = "PiYG", xticklabels = list(map(lambda enrichVals :str(enrichVals) + '%',enrichVals.round(2))), yticklabels = list(map(lambda pctLEUVals :str(pctLEUVals) + '%',pctLEUVals.round(2))))
         plt.xlabel("Enrichment Values (%)")
         plt.ylabel("Uranium Concentration (%)")
         plt.title("Reactivity as a Function of Enrichment and Uranium Concentration in TOX Fuel")
