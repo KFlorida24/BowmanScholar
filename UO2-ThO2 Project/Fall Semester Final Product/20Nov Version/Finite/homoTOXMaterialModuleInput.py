@@ -40,7 +40,7 @@ def matMixFunInput():
                 break
         while True:
             try:
-                UO2Enrichment = float(input('Desired level of UO2 Enrichment (%)? (Press Enter key for default for default value of 5%)') or 5)/100
+                UO2Enrichment = float(input('Desired level of UO2 Enrichment (%)? (Press Enter key for default for default value of 15%)') or 15)/100
             except ValueError:
                 print("Please type in a valid number (no characters)")
                 continue
@@ -92,7 +92,7 @@ def matMixFunInput():
                 break
         while True:
             try:
-                UO2EnrichmentFirst = float(input('Starting level of UO2 Enrichment (%)? (Press Enter key for default value of 5%)') or 5)/100
+                UO2EnrichmentFirst = float(input('Starting level of UO2 Enrichment (%)? (Press Enter key for default value of 15%)') or 15)/100
             except ValueError:
                 print("Please type in a valid number (no characters)")
                 continue
@@ -114,7 +114,7 @@ def matMixFunInput():
                 break
         while True:
             try:
-                pctLEUFirst = float(input('Starting TOX Fuel Uranium Fraction (%)? (Press Enter key for default for default value of 5%)') or 5)/100
+                pctLEUFirst = float(input('Starting TOX Fuel Uranium Fraction (%)? (Press Enter key for default for default value of 40%)') or 40)/100
             except ValueError:
                 print("Please type in a valid number (no characters)")
                 continue
@@ -163,6 +163,10 @@ def matMixFunInput():
         keffMat[1:, 0] = enrichVals
         keffMat[0,1:] = pctLEUVals
         print(keffMat)
+        reactMatInit=np.zeros((enrichRunNum+1,fuelMixRunNum+1))
+        reactMat = np.array((reactMatInit), dtype=float)
+        reactMat[1:,0] = enrichVals
+        reactMat[0,1:] = pctLEUVals
 
     
         while i < enrichRunNum:
@@ -349,8 +353,11 @@ def matMixFunInput():
                 sep = '+/-'
             
                 keffValFloat = float(str(keffVal).split(sep, 1)[0])
+                reactMatFloat = (keffValFloat-1)/keffValFloat
         
                 keffMat[i+1,j+1]= keffValFloat
+                reactMat[i+1,j+1] = reactMatFloat
+                
                 sp.close()
             
                 j += 1
@@ -359,13 +366,17 @@ def matMixFunInput():
         keffMatValsOnly = keffMat[1:,1:]
         print(keffMat)
         print(keffMatValsOnly)
+        reactMatValsOnly = reactMat[1:,1:]
+        print(reactMat)
+        print(reactMatValsOnly)
         
-        sns.heatmap(keffMatValsOnly, center=1, cmap = "PiYG", xticklabels = enrichVals, yticklabels = pctLEUVals)
+        sns.heatmap(reactMatValsOnly, center=0, cmap = "PiYG", xticklabels = "{:.2f}".format(enrichVals*100), yticklabels = "{:.2f}".format(pctLEUVals*100))
         plt.xlabel("Enrichment Values (%)")
         plt.ylabel("Uranium Concentration (%)")
         plt.title("Reactivity as a Function of Enrichment and Uranium Concentration in TOX Fuel")
         plt.savefig('heatmap.png',bbox_inches='tight')
         plt.show()
-    elif userInputTF == 3:
-        While True
+    #elif userInputTF == 3:
+        #While True
+        
 
