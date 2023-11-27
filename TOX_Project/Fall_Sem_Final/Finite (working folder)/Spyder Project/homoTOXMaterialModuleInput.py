@@ -345,8 +345,7 @@ def matMixFunInput():
                 ## Define Bounding Geometry ##
                 matBox = openmc.model.RectangularParallelepiped(-matCubeL/2, matCubeL/2, 
                                                             -matCubeL/2, matCubeL/2, 
-                                                            -matCubeL/2, matCubeL/2,
-                                                            boundary_type='reflective')
+                                                            -matCubeL/2, matCubeL/2)
             
                 material_region = -matBox
             
