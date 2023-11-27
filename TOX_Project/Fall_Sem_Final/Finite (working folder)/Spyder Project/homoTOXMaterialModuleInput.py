@@ -322,7 +322,7 @@ def matMixFunInput():
                 cladCylinder = openmc.model.RightCircularCylinder((0, 0, 0), cyl_Length*1.05, cyl_Radius*1.1) #arbitrarily decided cladding width (may have to adjust)
 
                 material_region = -matCylinder
-                clad_region = -cladCylinder +matCylinder
+                clad_region = -cladCylinder & +matCylinder
                 
                 # fuel
                 material_Geom = openmc.Cell(name='material_Geom')
