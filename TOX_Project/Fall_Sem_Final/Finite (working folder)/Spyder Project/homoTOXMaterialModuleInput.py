@@ -342,7 +342,7 @@ def matMixFunInput():
                 clad_Geom.region = clad_region
                 
 
-                root_universe = openmc.Universe(cells=[material_Geom])
+                root_universe = openmc.Universe(cells=[material_Geom, clad_Geom])
 
                 geometry = openmc.Geometry()
                 geometry.root_universe = root_universe
