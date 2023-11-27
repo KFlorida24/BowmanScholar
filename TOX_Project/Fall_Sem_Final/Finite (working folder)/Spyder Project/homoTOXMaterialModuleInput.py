@@ -326,10 +326,10 @@ def matMixFunInput():
                 
                 ## Define Bounding Geometry ##
                 matCylinder = openmc.model.RightCircularCylinder((0, 0, 0), cyl_Length, cyl_Radius)
-                cladCylinder = openmc.model.RightCircularCylinder((0, 0, 0), clad_cyl_Length, clad_cyl_Radius) #arbitrarily decided cladding width (may have to adjust)
+                #cladCylinder = openmc.model.RightCircularCylinder((0, 0, 0), clad_cyl_Length, clad_cyl_Radius) #arbitrarily decided cladding width (may have to adjust)
 
                 material_region = -matCylinder
-                clad_region = -cladCylinder & +matCylinder
+               # clad_region = -cladCylinder & +matCylinder
                 
                 # fuel
                 material_Geom = openmc.Cell(name='material_Geom')
@@ -337,12 +337,12 @@ def matMixFunInput():
                 material_Geom.region = material_region
                 
                 # cladding
-                clad_Geom = openmc.Cell(name='clad_Geom')
-                clad_Geom.fill = cladMat
-                clad_Geom.region = clad_region
+               # clad_Geom = openmc.Cell(name='clad_Geom')
+               # clad_Geom.fill = cladMat
+                #clad_Geom.region = clad_region
                 
-
-                root_universe = openmc.Universe(cells=[material_Geom, clad_Geom])
+                root_universe = openmc.Universe(cells=[material_Geom])
+                #root_universe = openmc.Universe(cells=[material_Geom, clad_Geom])
 
                 geometry = openmc.Geometry()
                 geometry.root_universe = root_universe
@@ -406,7 +406,7 @@ def matMixFunInput():
         plt.ylabel("Uranium Concentration (%)")
         plt.title("Reactivity as a Function of Enrichment and Uranium Concentration in TOX Fuel")
         plt.savefig('heatmap.png',bbox_inches='tight')
-        
+        plt.show()
         
     elif userInputTF == 3:
         while True:
@@ -484,8 +484,4 @@ def matMixFunInput():
             else:
                 break
         
-        
-        
-        plt.show()
-    #elif userInputTF == 3:
         #While True
