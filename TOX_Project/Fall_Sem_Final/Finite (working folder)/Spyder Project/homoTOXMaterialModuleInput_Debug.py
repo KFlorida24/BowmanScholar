@@ -313,39 +313,88 @@ def matMixFunInput():
                 
                 ## Define Universe Geometry
                 
-                universeCylinder = openmc.model.RightCircularCylinder((0, 0, -0.25*cyl_Length), 1.5*cyl_Length, 1.5*cyl_Radius)
+                
+                l_cube = 2.0;
+                universeCube = openmc.model.RectangularParallelepiped(-l_cube, l_cube, -l_cube, l_cube, -l_cube, l_cube)
             
-                insideCylinder = -universeCylinder
-                # outsideCylinder = +universeCylinder #unused
+                insideCube = -universeCube
+                outsideCube = +universeCube
             
                 cell = openmc.Cell()
-                cell.region = insideCylinder
+                cell.region = insideCube
             
                 universe = openmc.Universe()
                 universe.add_cell(cell)
-                
+            
+                # Parameters
+                # Cube
+                matCubeL = 1 # [cm]
+                cubeVol = matCubeL**3 # [cm^3]
+                # Sphere
+                matSphereRad = 1 # [cm]
+                sphereVol = (4/3)*math.pi*matSphereRad**3
+            
+                # Volume Output
+                #Cube
+                fuelCubeVol = fuelVolFrac*cubeVol
+                graphCubeVol = graphVolFrac*cubeVol
+                hel_CoolCubeVol = hel_CoolVolFrac*cubeVol
+                totalCubeVol = fuelCubeVol + graphCubeVol + hel_CoolCubeVol
+            
+            
                 ## Define Bounding Geometry ##
-                matCylinder = openmc.model.RightCircularCylinder((0, 0, 0), cyl_Length, cyl_Radius)
-                cladCylinder = openmc.model.RightCircularCylinder((0, 0, 0), clad_cyl_Length, clad_cyl_Radius, boundary_type='vacuum') #arbitrarily decided cladding width (may have to adjust)
-
-                material_region = -matCylinder
-                clad_region = -cladCylinder & +matCylinder
-                
-                # fuel
+                matBox = openmc.model.RectangularParallelepiped(-matCubeL/2, matCubeL/2, 
+                                                            -matCubeL/2, matCubeL/2, 
+                                                            -matCubeL/2, matCubeL/2)
+            
+                material_region = -matBox
+            
                 material_Geom = openmc.Cell(name='material_Geom')
+                #material_Geom.fill = materials #<<(SRB) This probably isn't correct.  Needs to be a material.
                 material_Geom.fill = mixMat
                 material_Geom.region = material_region
-                
-                # cladding
-                clad_Geom = openmc.Cell(name='clad_Geom')
-                clad_Geom.fill = cladMat
-                clad_Geom.region = clad_region
-                
-
-                root_universe = openmc.Universe(cells=[material_Geom, clad_Geom])
-
+            
+                root_universe = openmc.Universe(cells=[material_Geom])
+            
                 geometry = openmc.Geometry()
                 geometry.root_universe = root_universe
+                geometry.export_to_xml()
+            
+            
+                
+               #  universeCylinder = openmc.model.RightCircularCylinder((0, 0, -0.25*cyl_Length), 1.5*cyl_Length, 1.5*cyl_Radius)
+            
+               #  insideCylinder = -universeCylinder
+               #  # outsideCylinder = +universeCylinder #unused
+            
+               #  cell = openmc.Cell()
+               #  cell.region = insideCylinder
+            
+               #  universe = openmc.Universe()
+               #  universe.add_cell(cell)
+                
+               #  ## Define Bounding Geometry ##
+               #  matCylinder = openmc.model.RightCircularCylinder((0, 0, 0), cyl_Length, cyl_Radius)
+               #  #cladCylinder = openmc.model.RightCircularCylinder((0, 0, 0), clad_cyl_Length, clad_cyl_Radius) #arbitrarily decided cladding width (may have to adjust)
+
+               #  material_region = -matCylinder
+               # # clad_region = -cladCylinder & +matCylinder
+                
+               #  # fuel
+               #  material_Geom = openmc.Cell(name='material_Geom')
+               #  material_Geom.fill = mixMat
+               #  material_Geom.region = material_region
+                
+               #  # cladding
+               # # clad_Geom = openmc.Cell(name='clad_Geom')
+               # # clad_Geom.fill = cladMat
+               #  #clad_Geom.region = clad_region
+                
+               #  root_universe = openmc.Universe(cells=[material_Geom])
+               #  #root_universe = openmc.Universe(cells=[material_Geom, clad_Geom])
+
+               #  geometry = openmc.Geometry()
+               #  geometry.root_universe = root_universe
                 
                 ## Cross Sections ##
                 ## Source ##
