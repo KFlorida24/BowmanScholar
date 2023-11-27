@@ -313,7 +313,7 @@ def matMixFunInput():
                 
                 ## Define Universe Geometry
                 
-                universeCylinder = openmc.model.RightCircularCylinder((0, 0, -0.25*cyl_Length), 1.5*cyl_Length, 1.5*cyl_Radius, boundary_type='vacuum')
+                universeCylinder = openmc.model.RightCircularCylinder((0, 0, -0.25*cyl_Length), 1.5*cyl_Length, 1.5*cyl_Radius)
             
                 insideCylinder = -universeCylinder
                 # outsideCylinder = +universeCylinder #unused
@@ -325,11 +325,11 @@ def matMixFunInput():
                 universe.add_cell(cell)
                 
                 ## Define Bounding Geometry ##
-                matCylinder = openmc.model.RightCircularCylinder((0, 0, 0), cyl_Length, cyl_Radius, boundary_type='reflective')
-                #cladCylinder = openmc.model.RightCircularCylinder((0, 0, 0), clad_cyl_Length, clad_cyl_Radius, boundary_type='vacuum') #arbitrarily decided cladding width (may have to adjust)
+                matCylinder = openmc.model.RightCircularCylinder((0, 0, 0), cyl_Length, cyl_Radius, boundary_type='transmission')
+                cladCylinder = openmc.model.RightCircularCylinder((0, 0, 0), clad_cyl_Length, clad_cyl_Radius, boundary_type='vacuum') #arbitrarily decided cladding width (may have to adjust)
 
                 material_region = -matCylinder
-                #clad_region = -cladCylinder & +matCylinder
+                clad_region = -cladCylinder & +matCylinder
                 
                 # fuel
                 material_Geom = openmc.Cell(name='material_Geom')
@@ -339,10 +339,10 @@ def matMixFunInput():
                 # cladding
                 clad_Geom = openmc.Cell(name='clad_Geom')
                 clad_Geom.fill = cladMat
-                #clad_Geom.region = clad_region
+                clad_Geom.region = clad_region
                 
 
-                root_universe = openmc.Universe(cells=[material_Geom])
+                root_universe = openmc.Universe(cells=[material_Geom, clad_Geom])
 
                 geometry = openmc.Geometry()
                 geometry.root_universe = root_universe
@@ -350,7 +350,7 @@ def matMixFunInput():
                 ## Cross Sections ##
                 ## Source ##
                 # create a point source
-                point = openmc.stats.Point((0,0,0))
+                point = openmc.stats.Point((0,0,cyl_Length/2))
                 source = openmc.Source(space=point)
             
                 settings = openmc.Settings()
