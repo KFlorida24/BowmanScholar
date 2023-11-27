@@ -295,19 +295,19 @@ def matMixFunInput():
                 ## Define Universe Geometry
                 
                 l_cube = 2.0;
-                universeCylinder = openmc.model.RightCircularCylinder(-0.25*cyl_Length, 1.5*cyl_Length, 1.5*cyl_Radius)
+                universeCylinder = openmc.model.RightCircularCylinder((0, 0, -0.25*cyl_Length), 1.5*cyl_Length, 1.5*cyl_Radius)
             
                 insideCylinder = -universeCylinder
                 outsideCylinder = +universeCylinder
             
                 cell = openmc.Cell()
-                cell.region = insideCube
+                cell.region = insideCylinder
             
                 universe = openmc.Universe()
                 universe.add_cell(cell)
                 
                 ## Define Bounding Geometry ##
-                matBox = openmc.model.RightCircularCylinder(0, cyl_Length, cyl_Radius)
+                matCylinder = openmc.model.RightCircularCylinder((0, 0, 0), cyl_Length, cyl_Radius)
 
                 material_region = -matCylinder
 
