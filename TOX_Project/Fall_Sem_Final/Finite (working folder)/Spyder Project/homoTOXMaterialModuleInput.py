@@ -326,7 +326,7 @@ def matMixFunInput():
                 
                 ## Define Bounding Geometry ##
                 matCylinder = openmc.model.RightCircularCylinder((0, 0, 0), cyl_Length, cyl_Radius, boundary_type='transmission')
-                cladCylinder = openmc.model.RightCircularCylinder((0, 0, 0), clad_cyl_Length, clad_cyl_Radius, boundary_type='vacuum') #arbitrarily decided cladding width (may have to adjust)
+                cladCylinder = openmc.model.RightCircularCylinder((0, 0, 0), clad_cyl_Length, clad_cyl_Radius, boundary_type='transmission') #arbitrarily decided cladding width (may have to adjust)
 
                 material_region = -matCylinder
                 clad_region = -cladCylinder & +matCylinder
