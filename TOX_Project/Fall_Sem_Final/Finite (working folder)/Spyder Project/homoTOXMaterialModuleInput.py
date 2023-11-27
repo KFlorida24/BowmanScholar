@@ -6,6 +6,7 @@ from pathlib import Path
 import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
+import openmc.deplete
 
 
 
@@ -285,20 +286,30 @@ def matMixFunInput():
                                                    fracs=[fuelVolFrac,graphVolFrac,hel_CoolVolFrac],
                                                   percent_type='vo',
                                                   )
-           
+                # Define Cladding Material
+                # Zircaloy 4
+                # ref 1: https://www.azom.com/article.aspx?ArticleID=7644
+                # ref 2: https://www.sciencedirect.com/topics/engineering/zircaloy#:~:text=Zircaloy%2D4%20was%20obtained%20by,%E2%80%93%20O%20(0.003%20wt%25).
+                cladMat = openmc.Material(name = 'cladMat')
+                cladMat.add_element('Zr', 0.98197)
+                cladMat.add_element('Sn', 0.015)
+                cladMat.add_element('Fe', 0.002)
+                cladMat.add_element('Cr', 0.001)
+                cladMat.add_element('O', 0.00003)             
+                
+                
                 materials = openmc.Materials()
                 #materials += [fuel, graph, hel_Cool]
-                materials += [mixMat]
+                materials += [mixMat, cladMat]
            
                 materials.export_to_xml()
                 
                 ## Define Universe Geometry
                 
-                l_cube = 2.0;
                 universeCylinder = openmc.model.RightCircularCylinder((0, 0, -0.25*cyl_Length), 1.5*cyl_Length, 1.5*cyl_Radius)
             
                 insideCylinder = -universeCylinder
-                outsideCylinder = +universeCylinder
+                # outsideCylinder = +universeCylinder #unused
             
                 cell = openmc.Cell()
                 cell.region = insideCylinder
@@ -308,12 +319,21 @@ def matMixFunInput():
                 
                 ## Define Bounding Geometry ##
                 matCylinder = openmc.model.RightCircularCylinder((0, 0, 0), cyl_Length, cyl_Radius)
+                cladCylinder = openmc.model.RightCircularCylinder((0, 0, 0), cyl_Length*1.05, cyl_Radius*1.1) #arbitrarily decided cladding width (may have to adjust)
 
                 material_region = -matCylinder
-
+                clad_region = -cladCylinder +matCylinder
+                
+                # fuel
                 material_Geom = openmc.Cell(name='material_Geom')
                 material_Geom.fill = mixMat
                 material_Geom.region = material_region
+                
+                # cladding
+                clad_Geom = openmc.Cell(name='clad_Geom')
+                clad_Geom.fill = cladMat
+                clad_Geom.region = clad_region
+                
 
                 root_universe = openmc.Universe(cells=[material_Geom])
 
@@ -378,6 +398,86 @@ def matMixFunInput():
         plt.ylabel("Uranium Concentration (%)")
         plt.title("Reactivity as a Function of Enrichment and Uranium Concentration in TOX Fuel")
         plt.savefig('heatmap.png',bbox_inches='tight')
+        
+        
+    elif userInputTF == 3:
+        while True:
+            try:
+                UO2MassRho = float(input('Desired UO2 Mass Density [g/cc]? (Press Enter key for default for default value of 10.45 g/cc)') or 10.45)
+            except ValueError:
+                print("Please type in a valid number (no characters)")
+                continue
+            else:
+                break
+        while True:
+            try:
+                enrichRunNum = int(input('Desired number of enrichments tested? (Press Enter key for default value of 2)') or 2)
+            except ValueError:
+                print("Please type in a valid number (must be an integer, no characters)")
+                continue
+            if enrichRunNum < 2:
+                print("# of runs must be more than 1")
+                continue
+            else:
+                break
+        while True:
+            try:
+                fuelMixRunNum = int(input('Desired number of fuel mixtures tested? (Press Enter key for default value of 2)') or 2)
+            except ValueError:
+                print("Please type in a valid number (no characters)")
+                continue
+            if fuelMixRunNum < 2:
+                print("# of runs must be more than 1")
+                continue
+            else:
+                break
+        while True:
+            try:
+                UO2EnrichmentFirst = float(input('Starting level of UO2 Enrichment (%)? (Press Enter key for default value of 15%)') or 15)/100
+            except ValueError:
+                print("Please type in a valid number (no characters)")
+                continue
+            if UO2EnrichmentFirst < 0:
+                print("Value must be greater than 0.")
+                continue
+            else:
+                break
+        while True:
+            try:
+                UO2EnrichmentLast = float(input('Final level of UO2 Enrichment (%)? (Press Enter key for default value of 19.75%)') or 19.75)/100
+            except ValueError:
+                print("Please type in a valid number (no characters)")
+                continue
+            if UO2EnrichmentLast <= UO2EnrichmentFirst:
+                print("Final value must be greater than starting value.")
+                continue
+            else:
+                break
+        while True:
+            try:
+                pctLEUFirst = float(input('Starting TOX Fuel Uranium Fraction (%)? (Press Enter key for default for default value of 40%)') or 40)/100
+            except ValueError:
+                print("Please type in a valid number (no characters)")
+                continue
+            if pctLEUFirst < 0:
+                print("Value must be greater than 0.")
+                continue
+            else:
+                break
+        while True:
+            try:
+                pctLEULast = float(input('Final TOX Fuel Uranium Fraction (%)? (Press Enter key for default for default value of 95%)') or 95)/100
+            except ValueError:
+                print("Please type in a valid number (no characters)")
+                continue
+            if pctLEULast <= pctLEUFirst:
+                print("Final value must be greater than starting value.")
+                continue
+            else:
+                break
+        
+        
+        
         plt.show()
     #elif userInputTF == 3:
         #While True
