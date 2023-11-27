@@ -313,7 +313,7 @@ def matMixFunInput():
                 
                 ## Define Universe Geometry
                 
-                universeCylinder = openmc.model.RightCircularCylinder((0, 0, -0.25*cyl_Length), 1.5*cyl_Length, 1.5*cyl_Radius)
+                universeCylinder = openmc.model.RightCircularCylinder((0, 0, -0.25*cyl_Length), 1.5*cyl_Length, 1.5*cyl_Radius, axis='z')
             
                 insideCylinder = -universeCylinder
                 # outsideCylinder = +universeCylinder #unused
@@ -325,9 +325,8 @@ def matMixFunInput():
                 universe.add_cell(cell)
                 
                 ## Define Bounding Geometry ##
-                matCylinder = openmc.model.RightCircularCylinder((0, 0, 0), cyl_Length, cyl_Radius, boundary_type='vacuum')
-                cladCylinder = openmc.model.RightCircularCylinder((0, 0, 0), clad_cyl_Length, clad_cyl_Radius, boundary_type='transmission') #arbitrarily decided cladding width (may have to adjust)
-
+                matCylinder = openmc.model.RightCircularCylinder([0, 0, 0], cyl_Length, cyl_Radius, axis='z', boundary_type='vacuum')
+                cladCylinder = openmc.model.RightCircularCylinder([0, 0, 0], clad_cyl_Length, clad_cyl_Radius, axis='z', boundary_type='transmission') #arbitrarily decided cladding width (may have to adjust)
                 material_region = -matCylinder
                 clad_region = -cladCylinder & +matCylinder
                 
