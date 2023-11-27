@@ -7,7 +7,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def build_model(radius, length, fuel):
+def build_model(radius, fuel):
    
    
     materials = openmc.Materials([fuel])

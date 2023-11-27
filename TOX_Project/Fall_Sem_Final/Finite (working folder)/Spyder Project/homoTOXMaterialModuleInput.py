@@ -241,7 +241,12 @@ def matMixFunInput():
            
                 # Parameters
                 # Cylinder
-                cylinderVol = math.pi*cyl_Radius**2 #[m^3]
+                cylinderVol = math.pi*cyl_Radius**2*cyl_Length #[m^3]
+                clad_cyl_Radius = 1.1
+                clad_cyl_Length = 1.05
+                cladVol = math.pi*clad_cyl_Radius**2*clad_cyl_Length #[m^3]
+                clad_rho = 6.56 #[g/cm^3]
+                
            
                 # Volume Output
                 # Cylinder
@@ -295,7 +300,9 @@ def matMixFunInput():
                 cladMat.add_element('Sn', 0.015)
                 cladMat.add_element('Fe', 0.002)
                 cladMat.add_element('Cr', 0.001)
-                cladMat.add_element('O', 0.00003)             
+                cladMat.add_element('O', 0.00003)      
+                cladMat.set_density('g/cm3', clad_rho) # Based on assumption of fuel density within TRISO
+                cladMat.volume = cladVol
                 
                 
                 materials = openmc.Materials()
@@ -319,7 +326,7 @@ def matMixFunInput():
                 
                 ## Define Bounding Geometry ##
                 matCylinder = openmc.model.RightCircularCylinder((0, 0, 0), cyl_Length, cyl_Radius)
-                cladCylinder = openmc.model.RightCircularCylinder((0, 0, 0), cyl_Length*1.05, cyl_Radius*1.1) #arbitrarily decided cladding width (may have to adjust)
+                cladCylinder = openmc.model.RightCircularCylinder((0, 0, 0), clad_cyl_Length, clad_cyl_Radius) #arbitrarily decided cladding width (may have to adjust)
 
                 material_region = -matCylinder
                 clad_region = -cladCylinder & +matCylinder
@@ -348,6 +355,7 @@ def matMixFunInput():
             
                 settings = openmc.Settings()
                 settings.source = source
+                settings.temperature['method']='interpolation';
                 settings.batches = 110
                 settings.inactive = 10
                 settings.particles = 1000
