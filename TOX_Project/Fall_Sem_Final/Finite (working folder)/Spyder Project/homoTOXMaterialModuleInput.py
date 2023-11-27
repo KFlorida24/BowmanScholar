@@ -350,8 +350,19 @@ def matMixFunInput():
                 ## Cross Sections ##
                 ## Source ##
                 # create a point source
-                point = openmc.stats.Point((0,0,cyl_Length/2))
-                source = openmc.Source(space=point)
+                # ref: https://openmc.discourse.group/t/cylindrical-geometry-more-than-95-of-external-source-sites-sampled-were-rejected/1432
+                source = openmc.Source()
+                rad_src = openmc.stats.Uniform(a=0, b=cyl_Radius)
+                phi_src = openmc.stats.Uniform(a=0, b=2*math.pi)
+                z_src = openmc.stats.Uniform(a=0, b=cyl_Length)
+                origin_src = (0.0, 0.0, cyl_Length/2)
+                source.space = openmc.stats.CylindricalIndependent(r=rad_src,phi=phi_src,z=z_src,origin = origin_src)
+                source.angle = openmc.stats.Isotropic()
+                #source.energy = openmc.stats.Discrete([10.0e6], [1.0])
+                #source.time = openmc.stats.Uniform(0, 1e-6)
+                settings = openmc.Settings()
+                settings.source = source
+                settings.run_modes = 'fixed source'
             
                 settings = openmc.Settings()
                 settings.source = source
