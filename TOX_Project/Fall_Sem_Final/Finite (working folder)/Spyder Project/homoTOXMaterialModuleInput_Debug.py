@@ -407,7 +407,7 @@ def matMixFunInput():
                 settings.temperature['method']='interpolation';
                 settings.batches = 110
                 settings.inactive = 10
-                settings.particles = 1000
+                settings.particles = 10000
                 
                 # settings.particles = 10000 # particles per batch
                 # settings.batches = 1050 # number of batches
