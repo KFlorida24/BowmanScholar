@@ -313,7 +313,7 @@ def matMixFunInput():
                 
                 ## Define Universe Geometry
                 
-                universeCylinder = openmc.model.RightCircularCylinder((0, 0, -0.25*cyl_Length), 1.5*cyl_Length, 1.5*cyl_Radius, axis='z')
+                universeCylinder = openmc.model.RightCircularCylinder([0, 0, -0.25*cyl_Length], 1.5*cyl_Length, 1.5*cyl_Radius, axis='z')
             
                 insideCylinder = -universeCylinder
                 # outsideCylinder = +universeCylinder #unused
