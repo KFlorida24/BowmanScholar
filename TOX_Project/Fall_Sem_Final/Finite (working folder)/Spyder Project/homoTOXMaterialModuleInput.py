@@ -295,10 +295,10 @@ def matMixFunInput():
                 ## Define Universe Geometry
                 
                 l_cube = 2.0;
-                universeCube = openmc.model.RectangularParallelepiped(-l_cube, l_cube, -l_cube, l_cube, -l_cube, l_cube)
+                universeCylinder = openmc.model.RightCircularCylinder(0, 0, -0.25*cyl_Length, 1.5*cyl_Length, 1.5*cyl_Radius,axis='z')
             
-                insideCube = -universeCube
-                outsideCube = +universeCube
+                insideCylinder = -universeCylinder
+                outsideCylinder = +universeCylinder
             
                 cell = openmc.Cell()
                 cell.region = insideCube
@@ -307,15 +307,11 @@ def matMixFunInput():
                 universe.add_cell(cell)
                 
                 ## Define Bounding Geometry ##
-                matBox = openmc.model.RectangularParallelepiped(-matCubeL/2, matCubeL/2, 
-                                            -matCubeL/2, matCubeL/2, 
-                                            -matCubeL/2, matCubeL/2,
-                                            boundary_type='reflective')
+                matBox = openmc.model.RightCircularCylinder(0, 0, -0.25*cyl_Length, 1.5*cyl_Length, 1.5*cyl_Radius,axis='z')
 
-                material_region = -matBox
+                material_region = -matCylinder
 
                 material_Geom = openmc.Cell(name='material_Geom')
-                #material_Geom.fill = materials #<<(SRB) This probably isn't correct.  Needs to be a material.
                 material_Geom.fill = mixMat
                 material_Geom.region = material_region
 
