@@ -34,8 +34,8 @@ def matMixFunInput():
     #Geometry Definitions
     while True:
         try:
-            print("Please input diameter of core (cylinder) in m. (Press Enter key for default for default value of 4.6 m)")
-            cyl_Diameter = float(input()*100 or 4.6*100)
+            print("Please input diameter of core (cylinder) in m. (Press Enter key for default for default value of 2 m)")
+            cyl_Diameter = float(input()*100 or 2*100) # based on shipping container width of 8*8.6 feet (2 meters will comfortably fit)
             cyl_Radius = cyl_Diameter/2
         except ValueError:
             print("Please type in a valid number")
@@ -45,8 +45,8 @@ def matMixFunInput():
         
     while True:
         try:
-            print('Please input length of core (cylinder) in m. (Press Enter key for default for default value of 23.3 m)')
-            cyl_Length = float(input()*100 or 23.3*100)
+            print('Please input length of core (cylinder) in m. (Press Enter key for default for default value of 10 m)')
+            cyl_Length = float(input()*100 or 10*100) # based on shipping container length of 40 feet (10 meters will comfortably fit)
         except ValueError:
             print("Please type in a valid number")
             continue
@@ -295,7 +295,7 @@ def matMixFunInput():
                 ## Define Universe Geometry
                 
                 l_cube = 2.0;
-                universeCylinder = openmc.model.RightCircularCylinder(0, 0, -0.25*cyl_Length, 1.5*cyl_Length, 1.5*cyl_Radius,axis='z')
+                universeCylinder = openmc.model.RightCircularCylinder(0, 0, -0.25*cyl_Length, 1.5*cyl_Length, 1.5*cyl_Radius)
             
                 insideCylinder = -universeCylinder
                 outsideCylinder = +universeCylinder
@@ -307,7 +307,7 @@ def matMixFunInput():
                 universe.add_cell(cell)
                 
                 ## Define Bounding Geometry ##
-                matBox = openmc.model.RightCircularCylinder(0, 0, -0.25*cyl_Length, 1.5*cyl_Length, 1.5*cyl_Radius,axis='z')
+                matBox = openmc.model.RightCircularCylinder(0, 0, 0, cyl_Length, cyl_Radius,axis='z')
 
                 material_region = -matCylinder
 
