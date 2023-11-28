@@ -242,8 +242,9 @@ def matMixFunInput():
                 # Parameters
                 # Cylinder
                 cylinderVol = math.pi*cyl_Radius**2*cyl_Length #[m^3]
-                clad_cyl_Radius = 1.1
-                clad_cyl_Length = 1.05
+                clad_cyl_Radius = 1.1*cyl_Radius
+                clad_cyl_Length = 1.05*cyl_Length
+                clad_Thickness = (clad_cyl_Length - cyl_Length)/2.
                 cladVol = math.pi*clad_cyl_Radius**2*clad_cyl_Length #[m^3]
                 clad_rho = 6.56 #[g/cm^3]
                 
@@ -325,8 +326,10 @@ def matMixFunInput():
                 universe.add_cell(cell)
                 
                 ## Define Bounding Geometry ##
-                matCylinder = openmc.model.RightCircularCylinder([0, 0, 0], cyl_Length, cyl_Radius, axis='z', boundary_type='vacuum')
-                cladCylinder = openmc.model.RightCircularCylinder([0, 0, 0], clad_cyl_Length, clad_cyl_Radius, axis='z', boundary_type='transmission') #arbitrarily decided cladding width (may have to adjust)
+                matCylinder = openmc.model.RightCircularCylinder([0, 0, 0], cyl_Length, cyl_Radius, axis='z')
+                cladCylinder = openmc.model.RightCircularCylinder([0, 0, -clad_Thickness], clad_cyl_Length, 
+                                                                  clad_cyl_Radius, axis='z',
+                                                                  boundary_type='vacuum') #arbitrarily decided cladding width (may have to adjust)
                 material_region = -matCylinder
                 clad_region = -cladCylinder & +matCylinder
                 
@@ -345,6 +348,8 @@ def matMixFunInput():
 
                 geometry = openmc.Geometry()
                 geometry.root_universe = root_universe
+                
+                geometry.export_to_xml()
                 
                 ## Cross Sections ##
                 ## Source ##
