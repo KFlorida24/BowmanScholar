@@ -1113,10 +1113,10 @@ def matMixFunInput():
         repeat_depletion = False
 
 
-        if(repeat_depletion == True):
+        if(repeat_depletion == False):
             cecm.integrate()
             
-            # get depletion results to manipulate
+        # get depletion results to manipulate
         r = openmc.deplete.Results('depletion_results.h5')
         burned_mats = r.export_to_materials(burnup_index=15) #consider adding this once updated version maybe  ,path='burnedmats15.xml'
         burned_mats.export_to_xml('BurnedMaterials15.xml')
