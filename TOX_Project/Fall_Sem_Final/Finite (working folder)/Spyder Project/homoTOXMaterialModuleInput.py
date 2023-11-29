@@ -43,7 +43,7 @@ def matMixFunInput():
     # Run Mode
     while True:
         try:
-            print('Please select whether you want to do one run with user inputs (1), a continuous run (2), or Burn-Up (3).')
+            print('Please select whether you want to do one run with user inputs (1), a continuous run (2), or Burn-Up (3).\n')
             userInputTF = int(input() or 2)
         except ValueError:
             print("Please type in a valid number (1 or 2)")
@@ -63,7 +63,7 @@ def matMixFunInput():
     #Geometry Definitions
     while True:
         try:
-            print("Please input diameter of core (cylinder) in m. (Press Enter key for default for default value of 2 m)")
+            print("Please input diameter of core (cylinder) in m. (Press Enter key for default for default value of 2 m)\n")
             cyl_Diameter = float(input()*100 or 2*100) # based on shipping container width of 8*8.6 feet (2 meters will comfortably fit)
             cyl_Radius = cyl_Diameter/2
         except ValueError:
@@ -74,7 +74,7 @@ def matMixFunInput():
         
     while True:
         try:
-            print('Please input length of core (cylinder) in m. (Press Enter key for default for default value of 10 m)')
+            print('Please input length of core (cylinder) in m. (Press Enter key for default for default value of 10 m)\n')
             cyl_Length = float(input()*100 or 10*100) # based on shipping container length of 40 feet (10 meters will comfortably fit)
         except ValueError:
             print("Please type in a valid number")
@@ -87,7 +87,7 @@ def matMixFunInput():
     if userInputTF == 1:
         while True:
             try:
-                UO2MassRho = float(input('Desired UO2 Mass Density [g/cc]? (Press Enter key for default for default value of 10.45 g/cc)') or 10.45)
+                UO2MassRho = float(input('Desired UO2 Mass Density [g/cc]? (Press Enter key for default for default value of 10.45 g/cc)\n') or 10.45)
             except ValueError:
                 print("Please type in a valid number (no characters)")
                 continue
@@ -95,7 +95,7 @@ def matMixFunInput():
                 break
         while True:
             try:
-                UO2Enrichment = float(input('Desired level of UO2 Enrichment (%)? (Press Enter key for default for default value of 15%)') or 15)/100
+                UO2Enrichment = float(input('Desired level of UO2 Enrichment (%)? (Press Enter key for default for default value of 15%)\n') or 15)/100
             except ValueError:
                 print("Please type in a valid number (no characters)")
                 continue
@@ -103,7 +103,7 @@ def matMixFunInput():
                 break
         while True:
             try:
-                pctLEU = float(input('Desired TOX Fuel Uranium Fraction (%)? (Press Enter key for default for default value of 40%)') or 40)/100
+                pctLEU = float(input('Desired TOX Fuel Uranium Fraction (%)? (Press Enter key for default for default value of 40%)\n') or 40)/100
             except ValueError:
                 print("Please type in a valid number (no characters)")
                 continue
@@ -115,7 +115,7 @@ def matMixFunInput():
         print('Fuel Thorium Percent: ', (1 - pctLEU)*100, '%')
         while True:
             try:
-                n_batches = int(input('How many batches per run? (Press Enter key for default for default value of 110)') or 110)
+                n_batches = int(input('How many batches per run? (Press Enter key for default for default value of 110)\n') or 110)
             except ValueError:
                 print("Please type in a valid integer (no characters)")
                 continue
@@ -126,7 +126,7 @@ def matMixFunInput():
                 break
         while True:
             try:
-                n_inactive = int(input('How many discarded batches per run? (Press Enter key for default for default value of 10)') or 10)
+                n_inactive = int(input('How many discarded batches per run? (Press Enter key for default for default value of 10)\n') or 10)
             except ValueError:
                 print("Please type in a valid integer (no characters)")
                 continue
@@ -137,7 +137,7 @@ def matMixFunInput():
                 break
         while True:
             try:
-                n_particlesPerBatch = int(input('How many particles ber batch? (Press Enter key for default for default value of 10000)') or 10000)
+                n_particlesPerBatch = int(input('How many particles ber batch? (Press Enter key for default for default value of 10000\n') or 10000)
             except ValueError:
                 print("Please type in a valid integer (no characters)")
                 continue
@@ -768,7 +768,7 @@ def matMixFunInput():
     elif userInputTF == 3:
         while True:
             try:
-                UO2MassRho = float(input('Desired UO2 Mass Density [g/cc]? (Press Enter key for default for default value of 10.45 g/cc)') or 10.45)
+                UO2MassRho = float(input('Desired UO2 Mass Density [g/cc]? (Press Enter key for default for default value of 10.45 g/cc)\n') or 10.45)
             except ValueError:
                 print("Please type in a valid number (no characters)")
                 continue
@@ -776,7 +776,7 @@ def matMixFunInput():
                 break
         while True:
             try:
-                UO2Enrichment = float(input('Desired level of UO2 Enrichment (%)? (Press Enter key for default for default value of 15%)') or 15)/100
+                UO2Enrichment = float(input('Desired level of UO2 Enrichment (%)? (Press Enter key for default for default value of 15%)\n') or 15)/100
             except ValueError:
                 print("Please type in a valid number (no characters)")
                 continue
@@ -784,7 +784,7 @@ def matMixFunInput():
                 break
         while True:
             try:
-                pctLEU = float(input('Desired TOX Fuel Uranium Fraction (%)? (Press Enter key for default for default value of 40%)') or 40)/100
+                pctLEU = float(input('Desired TOX Fuel Uranium Fraction (%)? (Press Enter key for default for default value of 40%)\n') or 40)/100
             except ValueError:
                 print("Please type in a valid number (no characters)")
                 continue
@@ -796,7 +796,7 @@ def matMixFunInput():
         print('Fuel Thorium Percent: ', (1 - pctLEU)*100, '%')
         while True:
             try:
-                n_batches = int(input('How many batches per run? (Press Enter key for default for default value of 110)') or 110)
+                n_batches = int(input('How many batches per run? (Press Enter key for default for default value of 110)\n') or 110)
             except ValueError:
                 print("Please type in a valid integer (no characters)")
                 continue
@@ -807,7 +807,7 @@ def matMixFunInput():
                 break
         while True:
             try:
-                n_inactive = int(input('How many discarded batches per run? (Press Enter key for default for default value of 10)') or 10)
+                n_inactive = int(input('How many discarded batches per run? (Press Enter key for default for default value of 10)\n') or 10)
             except ValueError:
                 print("Please type in a valid integer (no characters)")
                 continue
@@ -818,7 +818,7 @@ def matMixFunInput():
                 break
         while True:
             try:
-                n_particlesPerBatch = int(input('How many particles ber batch? (Press Enter key for default for default value of 10000)') or 10000)
+                n_particlesPerBatch = int(input('How many particles ber batch? (Press Enter key for default for default value of 10000\n') or 10000)
             except ValueError:
                 print("Please type in a valid integer (no characters)")
                 continue
@@ -1112,7 +1112,7 @@ def matMixFunInput():
         repeat_depletion = False
 
 
-        if(repeat_depletion):
+        if(repeat_depletion == True):
             cecm.integrate()
             
             # get depletion results to manipulate
