@@ -1254,10 +1254,6 @@ def matMixFunInput():
 
         Structure_total_mass = clad_Mass + totalCylinderMass
         print('total mass of rhe assembly',Structure_total_mass/1000,'kg')
-
-
-        # total number of assemblies 
-        num_assem = net_weight_LEU; # net weight of fuel required for one BCM (kg) / fuel mass in one assembly (kg)
         print('the mass of Uranium fuel required for one BCM is',net_weight_LEU);
 
         
