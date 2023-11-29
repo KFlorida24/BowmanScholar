@@ -704,22 +704,42 @@ def matMixFunInput():
         plt.show()
         
         # Plot Geometry
-        plot = openmc.Plot()
-        plot.filename = 'homogeneousMatMixPlot'
-        plot.width = (2*clad_cyl_Radius*1.1,2*clad_cyl_Radius*1.1)
-        plot.pixels = (200,200)
-        plot.color_by = 'material'
-        plot.colors = {mixMat: 'yellow',cladMat: 'blue'}
+        plotXY = openmc.Plot()
+        plotXY.filename = 'homogeneousMatMixPlotXY'
+        plotXY.width = (2*clad_cyl_Radius*1.1,2*clad_cyl_Radius*1.1)
+        plotXY.pixels = (600,600)
+        plotXY.color_by = 'material'
+        plotXY.colors = {mixMat: 'yellow',cladMat: 'blue'}
+        plotXY.basis = 'xy'
         
-        plots = openmc.Plots([plot])
-        plots.export_to_xml()
+        plotsXY = openmc.Plots([plotXY])
+        plotsXY.export_to_xml()
 
         openmc.plot_geometry()
         # openmc.plot command documentation: https://docs.openmc.org/en/stable/pythonapi/generated/openmc.Plot.html
         # openmc.plot command color documentation: https://www.w3.org/TR/SVG11/types.html#ColorKeywords
-        Image('homogeneousMatMixPlot.png')
-        plot.to_ipython_image()
-        plot.origin = (0,0,cyl_Length/2)
+        Image('homogeneousMatMixPlotXY.png')
+        plotXY.to_ipython_image()
+        plotXY.origin = (0,0,cyl_Length/2)
+        
+        # Plot Geometry
+        plotXZ = openmc.Plot()
+        plotXZ.filename = 'homogeneousMatMixPlotXZ'
+        plotXZ.width = (2*clad_cyl_Radius*1.1,clad_cyl_Length*1.1)
+        plotXZ.pixels = (600,600)
+        plotXZ.color_by = 'material'
+        plotXZ.colors = {mixMat: 'yellow',cladMat: 'blue'}
+        plotXZ.basis = 'xz'
+        
+        plotsXZ = openmc.Plots([plotXZ])
+        plotsXZ.export_to_xml()
+
+        openmc.plot_geometry()
+        # openmc.plot command documentation: https://docs.openmc.org/en/stable/pythonapi/generated/openmc.Plot.html
+        # openmc.plot command color documentation: https://www.w3.org/TR/SVG11/types.html#ColorKeywords
+        Image('homogeneousMatMixPlotXZ.png')
+        plotsXZ.to_ipython_image()
+        plotsXZ.origin = (0,0,cyl_Length/2)
 
         
     elif userInputTF == 3:
