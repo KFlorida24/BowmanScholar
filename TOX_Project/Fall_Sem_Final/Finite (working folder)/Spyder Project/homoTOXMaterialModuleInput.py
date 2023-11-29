@@ -201,9 +201,9 @@ def matMixFunInput():
         
         # Mass Output
         #Cylinder
-        fuelCylinderMass = UThMixMassRho*graphCylinderVol
+        fuelCylinderMass = UThMixMassRho*fuelCylinderVol
         graphCylinderMass = graphMassRho*graphCylinderVol
-        hel_CoolCylinderMass = he_CoolMassRho*graphCylinderVol
+        hel_CoolCylinderMass = he_CoolMassRho*hel_CoolCylinderVol
         totalCylinderMass = fuelCylinderMass + graphCylinderMass + hel_CoolCylinderMass
 
    
@@ -215,7 +215,7 @@ def matMixFunInput():
         fuel.add_nuclide('U238', UThMixU238AtomFrac, 'ao')
         fuel.add_element('O', UThMixOAtomFrac, 'ao')
         fuel.set_density('g/cm3', UThMixMassRho) # Based on assumption of fuel density within TRISO
-        fuel.volume = cylinderVol
+
 
         # Establish Graphite Moderator material
         graph = openmc.Material(name='graph')
@@ -235,6 +235,8 @@ def matMixFunInput():
                                            fracs=[fuelVolFrac,graphVolFrac,hel_CoolVolFrac],
                                           percent_type='vo',
                                           )
+        mixMat.volume = totalCylinderVol
+        
         # Define Cladding Material
         # Zircaloy 4
         # ref 1: https://www.azom.com/article.aspx?ArticleID=7644
@@ -560,11 +562,11 @@ def matMixFunInput():
                
                 # Mass Output
                 #Cylinder
-                fuelCylinderMass = UThMixMassRho*graphCylinderVol
+                fuelCylinderMass = UThMixMassRho*fuelCylinderVol
                 graphCylinderMass = graphMassRho*graphCylinderVol
-                hel_CoolCylinderMass = he_CoolMassRho*graphCylinderVol
+                hel_CoolCylinderMass = he_CoolMassRho*hel_CoolCylinderVol
                 totalCylinderMass = fuelCylinderMass + graphCylinderMass + hel_CoolCylinderMass
-       
+
            
                 ## Define Materials ##
                 fuel = openmc.Material(name='fuel');
@@ -574,8 +576,8 @@ def matMixFunInput():
                 fuel.add_nuclide('U238', UThMixU238AtomFrac, 'ao')
                 fuel.add_element('O', UThMixOAtomFrac, 'ao')
                 fuel.set_density('g/cm3', UThMixMassRho) # Based on assumption of fuel density within TRISO
-                fuel.volume = cylinderVol
-       
+
+
                 # Establish Graphite Moderator material
                 graph = openmc.Material(name='graph')
                 # add nuclides to graph
@@ -594,6 +596,8 @@ def matMixFunInput():
                                                    fracs=[fuelVolFrac,graphVolFrac,hel_CoolVolFrac],
                                                   percent_type='vo',
                                                   )
+                mixMat.volume = totalCylinderVol
+        
                 # Define Cladding Material
                 # Zircaloy 4
                 # ref 1: https://www.azom.com/article.aspx?ArticleID=7644
@@ -878,9 +882,9 @@ def matMixFunInput():
         
         # Mass Output
         #Cylinder
-        fuelCylinderMass = UThMixMassRho*graphCylinderVol
+        fuelCylinderMass = UThMixMassRho*fuelCylinderVol
         graphCylinderMass = graphMassRho*graphCylinderVol
-        hel_CoolCylinderMass = he_CoolMassRho*graphCylinderVol
+        hel_CoolCylinderMass = he_CoolMassRho*hel_CoolCylinderVol
         totalCylinderMass = fuelCylinderMass + graphCylinderMass + hel_CoolCylinderMass
 
    
@@ -892,7 +896,7 @@ def matMixFunInput():
         fuel.add_nuclide('U238', UThMixU238AtomFrac, 'ao')
         fuel.add_element('O', UThMixOAtomFrac, 'ao')
         fuel.set_density('g/cm3', UThMixMassRho) # Based on assumption of fuel density within TRISO
-        fuel.volume = cylinderVol
+
 
         # Establish Graphite Moderator material
         graph = openmc.Material(name='graph')
@@ -912,6 +916,8 @@ def matMixFunInput():
                                            fracs=[fuelVolFrac,graphVolFrac,hel_CoolVolFrac],
                                           percent_type='vo',
                                           )
+        mixMat.volume = totalCylinderVol
+        
         # Define Cladding Material
         # Zircaloy 4
         # ref 1: https://www.azom.com/article.aspx?ArticleID=7644
