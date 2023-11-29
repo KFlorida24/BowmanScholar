@@ -1012,6 +1012,10 @@ def matMixFunInput():
         tallies.export_to_xml()
 
         openmc.run(output=False)
+        sp = openmc.StatePoint('statepoint.100.h5');
+        keffVal = sp.keff
+        print("K-effective =", keffVal)
+        print("Commencing Burn-Up Analysis")
         
         
         # Plot XY Geometry
