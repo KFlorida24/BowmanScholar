@@ -758,8 +758,8 @@ def matMixFunInput():
         # openmc.plot command documentation: https://docs.openmc.org/en/stable/pythonapi/generated/openmc.Plot.html
         # openmc.plot command color documentation: https://www.w3.org/TR/SVG11/types.html#ColorKeywords
         Image('homogeneousMatMixPlotXZ.png')
-        plotsXZ.to_ipython_image()
-        plotsXZ.origin = (0,0,cyl_Length/2)
+        plotXZ.to_ipython_image()
+        plotXZ.origin = (0,0,cyl_Length/2)
 
         
     elif userInputTF == 3:
