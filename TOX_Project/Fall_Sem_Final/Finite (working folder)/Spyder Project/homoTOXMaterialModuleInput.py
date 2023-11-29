@@ -1110,10 +1110,10 @@ def matMixFunInput():
                       1*days,6*days,23*days,335*days,365*days];
         cecm = openmc.deplete.CECMIntegrator(operator,time_steps,power_density=power_density);
         
-        repeat_depletion = False
+        repeat_depletion = True
 
 
-        if(repeat_depletion == False):
+        if(repeat_depletion == True):
             cecm.integrate()
             
         # get depletion results to manipulate
