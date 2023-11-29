@@ -336,6 +336,7 @@ def matMixFunInput():
         plotXY.color_by = 'material'
         plotXY.colors = {mixMat: 'yellow',cladMat: 'blue'}
         plotXY.basis = 'xy'
+        plotXY.origin = (0,0,clad_cyl_Length/2)
         
         plotsXY = openmc.Plots([plotXY])
         plotsXY.export_to_xml()
@@ -345,7 +346,7 @@ def matMixFunInput():
         # openmc.plot command color documentation: https://www.w3.org/TR/SVG11/types.html#ColorKeywords
         Image('homogeneousMatMixPlotXY.png')
         plotXY.to_ipython_image()
-        plotXY.origin = (0,0,clad_cyl_Length/2)
+        
         
         # Plo XZ Geometry
         plotXZ = openmc.Plot()
@@ -355,6 +356,7 @@ def matMixFunInput():
         plotXZ.color_by = 'material'
         plotXZ.colors = {mixMat: 'yellow',cladMat: 'blue'}
         plotXZ.basis = 'xz'
+        plotXZ.origin = (0,0,clad_cyl_Length/2)
         
         plotsXZ = openmc.Plots([plotXZ])
         plotsXZ.export_to_xml()
@@ -364,7 +366,7 @@ def matMixFunInput():
         # openmc.plot command color documentation: https://www.w3.org/TR/SVG11/types.html#ColorKeywords
         Image('homogeneousMatMixPlotXZ.png')
         plotXZ.to_ipython_image()
-        plotXZ.origin = (0,0,clad_cyl_Length/2)
+        
 
 
        
@@ -721,6 +723,7 @@ def matMixFunInput():
         plotXY.color_by = 'material'
         plotXY.colors = {mixMat: 'yellow',cladMat: 'blue'}
         plotXY.basis = 'xy'
+        plotXY.origin = (0,0,clad_cyl_Length/2)
         
         plotsXY = openmc.Plots([plotXY])
         plotsXY.export_to_xml()
@@ -730,7 +733,7 @@ def matMixFunInput():
         # openmc.plot command color documentation: https://www.w3.org/TR/SVG11/types.html#ColorKeywords
         Image('homogeneousMatMixPlotXY.png')
         plotXY.to_ipython_image()
-        plotXY.origin = (0,0,clad_cyl_Length/2)
+        
         
         # Plot XZ Geometry
         plotXZ = openmc.Plot()
@@ -740,6 +743,7 @@ def matMixFunInput():
         plotXZ.color_by = 'material'
         plotXZ.colors = {mixMat: 'yellow',cladMat: 'blue'}
         plotXZ.basis = 'xz'
+        plotXZ.origin = (0,0,clad_cyl_Length/2)
         
         plotsXZ = openmc.Plots([plotXZ])
         plotsXZ.export_to_xml()
@@ -749,7 +753,7 @@ def matMixFunInput():
         # openmc.plot command color documentation: https://www.w3.org/TR/SVG11/types.html#ColorKeywords
         Image('homogeneousMatMixPlotXZ.png')
         plotXZ.to_ipython_image()
-        plotXZ.origin = (0,0,clad_cyl_Length/2)
+        
 
         
     elif userInputTF == 3:
@@ -1013,6 +1017,7 @@ def matMixFunInput():
         plotXY.color_by = 'material'
         plotXY.colors = {mixMat: 'yellow',cladMat: 'blue'}
         plotXY.basis = 'xy'
+        plotXY.origin = (0,0,clad_cyl_Length/2)
         
         plotsXY = openmc.Plots([plotXY])
         plotsXY.export_to_xml()
@@ -1022,7 +1027,7 @@ def matMixFunInput():
         # openmc.plot command color documentation: https://www.w3.org/TR/SVG11/types.html#ColorKeywords
         Image('homogeneousMatMixPlotXY.png')
         plotXY.to_ipython_image()
-        plotXY.origin = (0,0,clad_cyl_Length/2)
+        
         
         # Plo XZ Geometry
         plotXZ = openmc.Plot()
@@ -1032,6 +1037,7 @@ def matMixFunInput():
         plotXZ.color_by = 'material'
         plotXZ.colors = {mixMat: 'yellow',cladMat: 'blue'}
         plotXZ.basis = 'xz'
+        plotXZ.origin = (0,0,clad_cyl_Length/2)
         
         plotsXZ = openmc.Plots([plotXZ])
         plotsXZ.export_to_xml()
@@ -1041,7 +1047,7 @@ def matMixFunInput():
         # openmc.plot command color documentation: https://www.w3.org/TR/SVG11/types.html#ColorKeywords
         Image('homogeneousMatMixPlotXZ.png')
         plotXZ.to_ipython_image()
-        plotXZ.origin = (0,0,clad_cyl_Length/2)
+        
         
         ## Burn Up Section
         
