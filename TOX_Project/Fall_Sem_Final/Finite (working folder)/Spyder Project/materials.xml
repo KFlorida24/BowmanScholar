@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <materials>
-  <material depletable="true" id="24" name="fuel(0.04)-graph(0.6266666666666666)-hel_Cool(0.33333333333333337)">
+  <material depletable="true" id="4" name="fuel(0.04)-graph(0.6266666666666666)-hel_Cool(0.33333333333333337)">
     <density units="g/cm3" value="1.8157939802955663" />
     <nuclide ao="0.0074146319030091255" name="Th232" />
     <nuclide ao="0.0007340747753541661" name="U235" />
@@ -11,7 +11,7 @@
     <nuclide ao="2.4215920238394484e-10" name="He3" />
     <nuclide ao="0.00012107935903277004" name="He4" />
   </material>
-  <material id="25" name="cladMat" volume="39913934.66385833">
+  <material id="5" name="cladMat" volume="39913934.66385833">
     <density units="g/cm3" value="6.56" />
     <nuclide ao="0.505223565" name="Zr90" />
     <nuclide ao="0.110177034" name="Zr91" />
