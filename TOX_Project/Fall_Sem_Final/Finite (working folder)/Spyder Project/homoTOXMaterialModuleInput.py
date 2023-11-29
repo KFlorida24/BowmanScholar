@@ -1022,6 +1022,7 @@ def matMixFunInput():
         keffVal = sp.keff
         print("K-effective =", keffVal)
         print("Commencing Burn-Up Analysis")
+        sp.close()
         
         
         # Plot XY Geometry
