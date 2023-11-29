@@ -125,8 +125,8 @@ def matMixFunInput():
             except ValueError:
                 print("Please type in a valid integer (no characters)")
                 continue
-            if n_batches >= n_inactive:
-                print("Must less than the number of batches run")
+            if n_batches <= n_inactive:
+                print("Must be less than the number of batches run")
                 continue
             else:
                 break
@@ -444,8 +444,8 @@ def matMixFunInput():
             except ValueError:
                 print("Please type in a valid integer (no characters)")
                 continue
-            if n_batches >= n_inactive:
-                print("Must less than the number of batches run")
+            if n_batches <= n_inactive:
+                print("Must be less than the number of batches run")
                 continue
             else:
                 break
