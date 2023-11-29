@@ -189,7 +189,7 @@ def matMixFunInput():
         clad_cyl_Radius = 1.1*cyl_Radius
         clad_cyl_Length = 1.05*cyl_Length
         clad_Thickness = (clad_cyl_Length - cyl_Length)/2.
-        cladVol = math.pi*clad_cyl_Radius**2*clad_cyl_Length-cylinderVol #[m^3]
+        cladVol = math.pi*clad_cyl_Radius**2*clad_cyl_Length #[m^3]
         clad_rho = 6.56 #[g/cm^3]
         
         # Volume Output
@@ -201,9 +201,9 @@ def matMixFunInput():
         
         # Mass Output
         #Cylinder
-        fuelCylinderMass = UThMixMassRho*fuelCylinderVol
+        fuelCylinderMass = UThMixMassRho*graphCylinderVol
         graphCylinderMass = graphMassRho*graphCylinderVol
-        hel_CoolCylinderMass = he_CoolMassRho*hel_CoolCylinderVol
+        hel_CoolCylinderMass = he_CoolMassRho*graphCylinderVol
         totalCylinderMass = fuelCylinderMass + graphCylinderMass + hel_CoolCylinderMass
 
    
@@ -215,7 +215,7 @@ def matMixFunInput():
         fuel.add_nuclide('U238', UThMixU238AtomFrac, 'ao')
         fuel.add_element('O', UThMixOAtomFrac, 'ao')
         fuel.set_density('g/cm3', UThMixMassRho) # Based on assumption of fuel density within TRISO
-
+        fuel.volume = cylinderVol
 
         # Establish Graphite Moderator material
         graph = openmc.Material(name='graph')
@@ -553,18 +553,27 @@ def matMixFunInput():
                 clad_rho = 6.56 #[g/cm^3]
                 
            
+                # Volume Parameters
+                # Cylinder
+                cylinderVol = math.pi*cyl_Radius**2*cyl_Length #[m^3]
+                clad_cyl_Radius = 1.1*cyl_Radius
+                clad_cyl_Length = 1.05*cyl_Length
+                clad_Thickness = (clad_cyl_Length - cyl_Length)/2.
+                cladVol = math.pi*clad_cyl_Radius**2*clad_cyl_Length #[m^3]
+                clad_rho = 6.56 #[g/cm^3]
+                
                 # Volume Output
                 # Cylinder
                 fuelCylinderVol = fuelVolFrac*cylinderVol
                 graphCylinderVol = graphVolFrac*cylinderVol
                 hel_CoolCylinderVol = hel_CoolVolFrac*cylinderVol
                 totalCylinderVol = fuelCylinderVol + graphCylinderVol + hel_CoolCylinderVol
-               
+                
                 # Mass Output
                 #Cylinder
-                fuelCylinderMass = UThMixMassRho*fuelCylinderVol
+                fuelCylinderMass = UThMixMassRho*graphCylinderVol
                 graphCylinderMass = graphMassRho*graphCylinderVol
-                hel_CoolCylinderMass = he_CoolMassRho*hel_CoolCylinderVol
+                hel_CoolCylinderMass = he_CoolMassRho*graphCylinderVol
                 totalCylinderMass = fuelCylinderMass + graphCylinderMass + hel_CoolCylinderMass
 
            
@@ -576,7 +585,7 @@ def matMixFunInput():
                 fuel.add_nuclide('U238', UThMixU238AtomFrac, 'ao')
                 fuel.add_element('O', UThMixOAtomFrac, 'ao')
                 fuel.set_density('g/cm3', UThMixMassRho) # Based on assumption of fuel density within TRISO
-
+                fuel.volume = cylinderVol
 
                 # Establish Graphite Moderator material
                 graph = openmc.Material(name='graph')
@@ -870,7 +879,7 @@ def matMixFunInput():
         clad_cyl_Radius = 1.1*cyl_Radius
         clad_cyl_Length = 1.05*cyl_Length
         clad_Thickness = (clad_cyl_Length - cyl_Length)/2.
-        cladVol = math.pi*clad_cyl_Radius**2*clad_cyl_Length-cylinderVol #[m^3]
+        cladVol = math.pi*clad_cyl_Radius**2*clad_cyl_Length #[m^3]
         clad_rho = 6.56 #[g/cm^3]
         
         # Volume Output
@@ -882,9 +891,9 @@ def matMixFunInput():
         
         # Mass Output
         #Cylinder
-        fuelCylinderMass = UThMixMassRho*fuelCylinderVol
+        fuelCylinderMass = UThMixMassRho*graphCylinderVol
         graphCylinderMass = graphMassRho*graphCylinderVol
-        hel_CoolCylinderMass = he_CoolMassRho*hel_CoolCylinderVol
+        hel_CoolCylinderMass = he_CoolMassRho*graphCylinderVol
         totalCylinderMass = fuelCylinderMass + graphCylinderMass + hel_CoolCylinderMass
 
    
@@ -896,7 +905,7 @@ def matMixFunInput():
         fuel.add_nuclide('U238', UThMixU238AtomFrac, 'ao')
         fuel.add_element('O', UThMixOAtomFrac, 'ao')
         fuel.set_density('g/cm3', UThMixMassRho) # Based on assumption of fuel density within TRISO
-
+        fuel.volume = cylinderVol
 
         # Establish Graphite Moderator material
         graph = openmc.Material(name='graph')
