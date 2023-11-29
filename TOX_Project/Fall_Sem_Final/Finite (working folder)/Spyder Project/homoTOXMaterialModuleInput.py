@@ -189,7 +189,7 @@ def matMixFunInput():
         clad_cyl_Radius = 1.1*cyl_Radius
         clad_cyl_Length = 1.05*cyl_Length
         clad_Thickness = (clad_cyl_Length - cyl_Length)/2.
-        cladVol = math.pi*clad_cyl_Radius**2*clad_cyl_Length #[m^3]
+        cladVol = math.pi*clad_cyl_Radius**2*clad_cyl_Length-cylinderVol #[m^3]
         clad_rho = 6.56 #[g/cm^3]
         
         # Volume Output
@@ -549,7 +549,7 @@ def matMixFunInput():
                 clad_cyl_Radius = 1.1*cyl_Radius
                 clad_cyl_Length = 1.05*cyl_Length
                 clad_Thickness = (clad_cyl_Length - cyl_Length)/2.
-                cladVol = math.pi*clad_cyl_Radius**2*clad_cyl_Length #[m^3]
+                cladVol = math.pi*clad_cyl_Radius**2*clad_cyl_Length-cylinderVol #[m^3]
                 clad_rho = 6.56 #[g/cm^3]
                 
            
@@ -870,7 +870,7 @@ def matMixFunInput():
         clad_cyl_Radius = 1.1*cyl_Radius
         clad_cyl_Length = 1.05*cyl_Length
         clad_Thickness = (clad_cyl_Length - cyl_Length)/2.
-        cladVol = math.pi*clad_cyl_Radius**2*clad_cyl_Length #[m^3]
+        cladVol = math.pi*clad_cyl_Radius**2*clad_cyl_Length-cylinderVol #[m^3]
         clad_rho = 6.56 #[g/cm^3]
         
         # Volume Output
