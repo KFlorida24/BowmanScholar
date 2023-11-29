@@ -1,7 +1,6 @@
 import openmc
 import openmc.deplete
 import matplotlib.pyplot as plt
-%matplotlib inline
 import numpy as np
 from math import pi
 import xml.etree.ElementTree as et

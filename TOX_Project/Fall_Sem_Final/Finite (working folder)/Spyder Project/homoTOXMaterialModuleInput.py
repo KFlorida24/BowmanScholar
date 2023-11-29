@@ -1,14 +1,19 @@
 import openmc
 import math
 import numpy as np
-import pandas as pd
-from pathlib import Path
+#import pandas as pd
+#from pathlib import Path
 import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 import openmc.deplete
 from IPython.display import Image
+import xml.etree.ElementTree as et
 
+#nitial General Disclaimer
+print("Code written by MIDN 1/C Karl Florida, USN under advisement of CAPT Stuart Blair, USN")
+print("Using endfb VII.1 Cross Section Library")
+print("This code is unfinished and should not be used outside of test-running\n")
 
 # General Parameters
 
@@ -1050,6 +1055,212 @@ def matMixFunInput():
         
         
         ## Burn Up Section
-        
         fuel.depletable = True
-        #While True
+        
+        ## Cross Sections ##
+        ## Source ##
+        # create a point source
+        # ref: https://openmc.discourse.group/t/cylindrical-geometry-more-than-95-of-external-source-sites-sampled-were-rejected/1432
+        source = openmc.Source()
+        rad_src = openmc.stats.Uniform(a=0, b=cyl_Radius)
+        phi_src = openmc.stats.Uniform(a=0, b=2*math.pi)
+        z_src = openmc.stats.Uniform(a=0, b=cyl_Length)
+        origin_src = (0.0, 0.0, cyl_Length/2)
+        source.space = openmc.stats.CylindricalIndependent(r=rad_src,phi=phi_src,z=z_src,origin = origin_src)
+        source.angle = openmc.stats.Isotropic()
+        #source.energy = openmc.stats.Discrete([10.0e6], [1.0])
+        #source.time = openmc.stats.Uniform(0, 1e-6)
+    
+        settings = openmc.Settings()
+        settings.source = source
+        #settings.run_modes = 'fixed source'
+        settings.run_mode = 'eigenvalue'
+        settings.temperature['method']='interpolation'
+        settings.batches = n_batches
+        settings.inactive = n_inactive
+        settings.particles = n_particlesPerBatch
+        
+        # Depletion
+        #Depletion Code is created using ENS Cullinan's code from his GitHub Repo:
+            #Link: https://github.com/Toshi-23/Proliferation_Research/blob/main/BCM_Calculations/BurnMats/BU_extraction.ipynb
+
+        model = openmc.model.Model(geometry,materials,settings)
+        operator = openmc.deplete.CoupledOperator(model,"chain_endfb71_pwr.xml");
+        
+        # typical PWR power density (assumption)
+        power_density = [30.5,30.5,30.5,30.5,30.5,
+                        30.5,30.5,30.5,30.5,30.5,
+                        0,0,0,0,0]; # power density W/gHM 
+        # power 0 after 4.5 years with cooldown steps of a day, week, month to 2 years
+        days = 24*3600;
+        time_steps = [0.5*days,0.5*days,1*days,5*days,
+                      23*days,150*days,365*days,365*days,
+                      365*days,365*days,
+                      1*days,6*days,23*days,335*days,365*days];
+        cecm = openmc.deplete.CECMIntegrator(operator,time_steps,power_density=power_density);
+        
+        repeat_depletion = False
+
+
+        if(repeat_depletion):
+            cecm.integrate()
+            
+            # get depletion results to manipulate
+        r = openmc.deplete.Results('depletion_results.h5')
+        burned_mats = r.export_to_materials(burnup_index=15) #consider adding this once updated version maybe  ,path='burnedmats15.xml'
+        burned_mats.export_to_xml('BurnedMaterials15.xml')
+
+        print(burned_mats)
+        
+        mat_tree = et.parse('BurnedMaterials15.xml')
+        root = mat_tree.getroot()
+        i=0
+        for child in root:
+            if child.attrib['name']=='uo2':
+                uo2_elem = root[i]
+            i+=1
+            
+         # create Material object from element in burned Materials object
+        uo2_elem.set('id',23)
+        print(uo2_elem.items())
+        type(uo2_elem)
+        burned_uo2 = openmc.Material.from_xml_element(uo2_elem)
+        burned_uo2_mass = burned_uo2.get_mass()
+
+        #burned_uo2 = openmc.Material(name='burned_uo2')
+        #Burned_uo2 = burned_uo2.from_xml_element(uo2_elem)
+        print(burned_uo2)
+        print(burned_uo2_mass)
+
+        listnuc = burned_uo2.get_nuclides() # list of nuclides present in burned fuel
+
+        # get string with all Pu isotopes present in burned fuel
+        # isotopes that will be present after chemical processing
+        import re
+        Puiso = []
+        for nuclide in listnuc:
+            if re.search('Pu.+', nuclide):
+                Puiso.append(nuclide)
+                
+        pu_mass =0.
+        for nuclide in Puiso:
+            pu_mass+=burned_uo2.get_mass(nuclide=nuclide)
+        print(pu_mass)
+
+
+        pu_mass_fraction = pu_mass/burned_uo2_mass
+        print(pu_mass_fraction)
+
+
+        # create metallic Pu from separated Pu product in Burned Fuel
+        SepPu = openmc.Material(name='PuProduct')
+        SepPu.set_density('g/cc',19.84) # density used for all metallic Plutonium in PNNL Compendium
+
+        print(Puiso)
+        i = len(Puiso)
+        n = 0
+        BurnPuAo = []
+        while (n < i):
+            BurnPu = burned_uo2.get_nuclide_atom_densities(Puiso[n])
+            BurnPuAo.append(BurnPu)
+            SepPu.add_nuclide(Puiso[n],BurnPu[Puiso[n]])
+            n+=1
+        print(BurnPuAo)
+        print(SepPu)
+
+        #Conduct BCM Search
+        
+        #Start main difference with ENS Cullinan's code
+        burn_model_geometry = openmc.Geometry(root_universe)
+        burn_model_materials = openmc.Materials([fuel])
+        burn_model = openmc.model.Model(burn_model_geometry, burn_model_materials, settings)
+
+        crit_r, guesses, keffs = openmc.search_for_keff(burn_model, bracket=[1,50],model_args={'fuel':SepPu},
+                                                        tol=1e-4, print_iterations=True,
+                                                       run_args={'output':False})
+        #End main difference
+        
+        # print results and collect data
+        print('Burned Plutonium Critical Mass')
+        print('The bare critical sphere radius is %7.4f cm.' % crit_r)
+        crit_v = 4/3*math.pi*crit_r**3 # volume of critical sphere (cc)
+
+        BCM = crit_v * 19.84 /1000 # mass of critical radius (kg)
+        print('The bare critical mass is %7.3f kg.' % BCM)
+
+        BCMs = np.array(BCM)
+        print(BCMs,
+              '\n')
+
+
+        net_weight_LEU = BCM/pu_mass_fraction
+        print(net_weight_LEU,' kg') # in kg only fuel material (no clad)
+
+        # get activity from burned fuel
+        print('Target material activity is %5.3g Bq/g ' % burned_uo2.get_activity())
+        burnact = burned_uo2.get_activity(by_nuclide=True,units='Bq/g')
+        print(burnact)
+
+
+        # plot activities in pie chart
+        # end of cool down period (2 years)
+
+        #newBurnact = burnact.copy()
+        newBurnact = {}
+        thresh = 3.7e8
+        for i, j in burnact.items():
+                if j >= thresh:
+                        newBurnact[i] = j
+
+
+
+        labels = []
+        sizes = []
+        for x, y in newBurnact.items():
+            labels.append(x)
+            sizes.append(y)
+        
+        print('newburnact',len(newBurnact))
+        print('burnact',len(burnact)) 
+        plt.pie(sizes, labels=labels)
+        plt.axis('equal')
+        plt.show()
+        print(newBurnact)
+        
+        print(burnact)
+
+        total_spec_act = sum(burnact.values()) # sum of the specific activity of each isotope (Bq/g)
+        print(total_spec_act,' Bq/g')
+        print(net_weight_LEU,' kg')
+
+
+        totalact = total_spec_act*net_weight_LEU/(3.7e7) # total activity from nuclear fuel required for one BCM (Ci)
+        print(totalact,' Ci')
+
+
+        print('BurnedMaterials15.xml')
+
+    
+
+        # Mass of fuel required for a BCM and number of assemblies needed
+
+        print('Assumed total homogenized fuel mass ',totalCylinderMass,'g')
+
+
+        clad_Mass = (np.pi*((clad_cyl_Radius**2)*cyl_Length - (cyl_Radius**2)*clad_cyl_Length))*cladMat.density;
+        print('clad mass of one pin',clad_Mass,'g')
+
+        clad_to_fuel_Ratio = clad_Mass/totalCylinderMass
+
+        Structure_total_mass = clad_Mass + totalCylinderMass
+        print('total mass of rhe assembly',Structure_total_mass/1000,'kg')
+
+
+        # total number of assemblies 
+        num_assem = net_weight_LEU; # net weight of fuel required for one BCM (kg) / fuel mass in one assembly (kg)
+        print('the mass of Uranium fuel required for one BCM is',net_weight_LEU);
+
+        
+        
+        
+        
