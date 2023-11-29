@@ -340,6 +340,7 @@ def matMixFunInput():
         plot.pixels = (200,200)
         plot.color_by = 'material'
         plot.colors = {mixMat: 'yellow',cladMat: 'blue'}
+        plot.origin = (0,0,cyl_Length/2)
         
         plots = openmc.Plots([plot])
         plots.export_to_xml()
@@ -718,6 +719,8 @@ def matMixFunInput():
         # openmc.plot command color documentation: https://www.w3.org/TR/SVG11/types.html#ColorKeywords
         Image('homogeneousMatMixPlot.png')
         plot.to_ipython_image()
+        plot.origin = (0,0,cyl_Length/2)
+
         
     elif userInputTF == 3:
         while True:
