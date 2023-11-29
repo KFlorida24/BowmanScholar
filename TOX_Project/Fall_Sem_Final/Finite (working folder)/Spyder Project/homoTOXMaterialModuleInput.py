@@ -48,7 +48,7 @@ def matMixFunInput():
         except ValueError:
             print("Please type in a valid number (1 or 2)")
             continue
-        if userInputTF not in (1,2):
+        if userInputTF not in (1,2,3):
             print("Please type in a valid entry (1 or 2)")
             continue
         else:
