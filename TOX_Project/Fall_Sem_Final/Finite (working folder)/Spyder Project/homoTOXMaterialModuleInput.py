@@ -332,7 +332,7 @@ def matMixFunInput():
         plotXY = openmc.Plot()
         plotXY.filename = 'homogeneousMatMixPlotXY'
         plotXY.width = (2*clad_cyl_Radius*1.1,2*clad_cyl_Radius*1.1)
-        plotXY.pixels = (600*2*clad_cyl_Radius*1.1/((2*clad_cyl_Radius*1.1)*(2*clad_cyl_Radius*1.1)),600*2*clad_cyl_Radius*1.1/((2*clad_cyl_Radius*1.1)*(2*clad_cyl_Radius*1.1)))
+        plotXY.pixels = (600,600)
         plotXY.color_by = 'material'
         plotXY.colors = {mixMat: 'yellow',cladMat: 'blue'}
         plotXY.basis = 'xy'
@@ -352,7 +352,7 @@ def matMixFunInput():
         plotXZ = openmc.Plot()
         plotXZ.filename = 'homogeneousMatMixPlotXZ'
         plotXZ.width = (2*clad_cyl_Radius*1.1,clad_cyl_Length*1.1)
-        plotXZ.pixels = (600*2*clad_cyl_Radius*1.1/((2*clad_cyl_Radius*1.1)*(clad_cyl_Length*1.1)),600*2*clad_cyl_Length*1.1/((2*clad_cyl_Radius*1.1)*(clad_cyl_Length*1.1)))
+        plotXZ.pixels = (600,round(600*(clad_cyl_Length*1.1)/(2*clad_cyl_Radius*1.1)))
         plotXZ.color_by = 'material'
         plotXZ.colors = {mixMat: 'yellow',cladMat: 'blue'}
         plotXZ.basis = 'xz'
@@ -719,7 +719,7 @@ def matMixFunInput():
         plotXY = openmc.Plot()
         plotXY.filename = 'homogeneousMatMixPlotXY'
         plotXY.width = (2*clad_cyl_Radius*1.1,2*clad_cyl_Radius*1.1)
-        plotXY.pixels = (600*2*clad_cyl_Radius*1.1/((2*clad_cyl_Radius*1.1)*(2*clad_cyl_Radius*1.1)),600*2*clad_cyl_Radius*1.1/((2*clad_cyl_Radius*1.1)*(2*clad_cyl_Radius*1.1)))
+        plotXY.pixels = (600,600)
         plotXY.color_by = 'material'
         plotXY.colors = {mixMat: 'yellow',cladMat: 'blue'}
         plotXY.basis = 'xy'
@@ -739,7 +739,7 @@ def matMixFunInput():
         plotXZ = openmc.Plot()
         plotXZ.filename = 'homogeneousMatMixPlotXZ'
         plotXZ.width = (2*clad_cyl_Radius*1.1,clad_cyl_Length*1.1)
-        plotXZ.pixels = (600*2*clad_cyl_Radius*1.1/((2*clad_cyl_Radius*1.1)*(clad_cyl_Length*1.1)),600*2*clad_cyl_Length*1.1/((2*clad_cyl_Radius*1.1)*(clad_cyl_Length*1.1)))
+        plotXZ.pixels = (600,round(600*(clad_cyl_Length*1.1)/(2*clad_cyl_Radius*1.1)))
         plotXZ.color_by = 'material'
         plotXZ.colors = {mixMat: 'yellow',cladMat: 'blue'}
         plotXZ.basis = 'xz'
@@ -1013,7 +1013,7 @@ def matMixFunInput():
         plotXY = openmc.Plot()
         plotXY.filename = 'homogeneousMatMixPlotXY'
         plotXY.width = (2*clad_cyl_Radius*1.1,2*clad_cyl_Radius*1.1)
-        plotXY.pixels = (600*2*clad_cyl_Radius*1.1/((2*clad_cyl_Radius*1.1)*(clad_cyl_Radius*1.1)),600*2*clad_cyl_Radius*1.1/((2*clad_cyl_Radius*1.1)*(clad_cyl_Radius*1.1)))
+        plotXY.pixels = (600,600)
         plotXY.color_by = 'material'
         plotXY.colors = {mixMat: 'yellow',cladMat: 'blue'}
         plotXY.basis = 'xy'
@@ -1033,7 +1033,7 @@ def matMixFunInput():
         plotXZ = openmc.Plot()
         plotXZ.filename = 'homogeneousMatMixPlotXZ'
         plotXZ.width = (2*clad_cyl_Radius*1.1,clad_cyl_Length*1.1)
-        plotXZ.pixels = (600*2*clad_cyl_Radius*1.1/((2*clad_cyl_Radius*1.1)*(clad_cyl_Length*1.1)),600*2*clad_cyl_Length*1.1/((2*clad_cyl_Radius*1.1)*(clad_cyl_Length*1.1)))
+        plotXZ.pixels = (600,round(600*(clad_cyl_Length*1.1)/(2*clad_cyl_Radius*1.1)))
         plotXZ.color_by = 'material'
         plotXZ.colors = {mixMat: 'yellow',cladMat: 'blue'}
         plotXZ.basis = 'xz'
