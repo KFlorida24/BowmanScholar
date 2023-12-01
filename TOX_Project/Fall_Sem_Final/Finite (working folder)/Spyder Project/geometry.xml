@@ -1,11 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <geometry>
-  <cell id="2" material="4" name="material_Geom" region="-4 5 -6" universe="2" />
-  <cell id="3" material="5" name="clad_Geom" region="-7 8 -9 (4 | -5 | 6)" universe="2" />
-  <surface coeffs="0 0 100.0" id="4" type="z-cylinder" />
-  <surface coeffs="0" id="5" type="z-plane" />
-  <surface coeffs="1000.0" id="6" type="z-plane" />
-  <surface boundary="vacuum" coeffs="0 0 110.00000000000001" id="7" type="z-cylinder" />
-  <surface boundary="vacuum" coeffs="-25.0" id="8" type="z-plane" />
-  <surface boundary="vacuum" coeffs="1025.0" id="9" type="z-plane" />
+  <cell id="2134" material="4268" name="material_Geom" region="-12800 12799 -12802 12801 -12804 12803" universe="2134" />
+  <surface boundary="reflective" coeffs="-0.5" id="12799" type="x-plane" />
+  <surface boundary="reflective" coeffs="0.5" id="12800" type="x-plane" />
+  <surface boundary="reflective" coeffs="-0.5" id="12801" type="y-plane" />
+  <surface boundary="reflective" coeffs="0.5" id="12802" type="y-plane" />
+  <surface boundary="reflective" coeffs="-0.5" id="12803" type="z-plane" />
+  <surface boundary="reflective" coeffs="0.5" id="12804" type="z-plane" />
 </geometry>
