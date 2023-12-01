@@ -11,5 +11,5 @@ import openmc.deplete
 import xml.etree.ElementTree as et
 
 
-matMixOut = matMixMod.matMixFunInput()
-#matMixOut = matMixMod_Infinite.matMixFunInput()
+#matMixOut = matMixMod.matMixFunInput()
+matMixOut = matMixMod_Infinite.matMixFunInput()

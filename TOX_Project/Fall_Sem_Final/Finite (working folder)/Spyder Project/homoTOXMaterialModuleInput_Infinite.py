@@ -161,6 +161,10 @@ def matMixFunInput():
         keffMat[1:, 0] = enrichVals
         keffMat[0,1:] = pctLEUVals
         print(keffMat)
+        reactMatInit=np.zeros((enrichRunNum+1,fuelMixRunNum+1))
+        reactMat = np.array((reactMatInit), dtype=float)
+        reactMat[1:,0] = enrichVals
+        reactMat[0,1:] = pctLEUVals
 
     
         while i < enrichRunNum:
@@ -340,27 +344,38 @@ def matMixFunInput():
                 tallies.export_to_xml()
 
                 openmc.run(output=False)
-                
+               
                 sp = openmc.StatePoint('statepoint.100.h5');
                 keffVal = sp.keff
                 print("{:.2f}".format(enrichVals[i]*100), "% Enrichment,", "{:.2f}".format(pctLEUVals[j]*100), "% Uranium (","{:.2f}".format((1-pctLEUVals[j])*100), "% Thorium ):", keffVal)
                 sep = '+/-'
-            
+           
                 keffValFloat = float(str(keffVal).split(sep, 1)[0])
-        
+                reactMatFloat = (keffValFloat-1)/keffValFloat
+       
                 keffMat[i+1,j+1]= keffValFloat
+                reactMat[i+1,j+1] = reactMatFloat
+               
                 sp.close()
-            
+           
                 j += 1
             j = 0
             i += 1
         keffMatValsOnly = keffMat[1:,1:]
         print(keffMat)
         print(keffMatValsOnly)
-        
-        sns.heatmap(reactMatValsOnly, center=0, cmap = "PiYG", xticklabels = list(map(lambda enrichVals :str(enrichVals) + '%',100*enrichVals.round(2))), yticklabels = list(map(lambda pctLEUVals :str(pctLEUVals) + '%',100*pctLEUVals.round(2))))
+        reactMatValsOnly = reactMat[1:,1:]
+        print(reactMat)
+        print(reactMatValsOnly)
+
+        heatmap_Plot = sns.heatmap(keffMatValsOnly, center=1, cmap = "PiYG", xticklabels = enrichVals, yticklabels = pctLEUVals)
+        for ind, label in enumerate(heatmap_Plot.get_xticklabels()):
+            if ind % 5 == 0:  # every 10th label is kept
+                label.set_visible(True)
+            else:
+                label.set_visible(False)
         plt.xlabel("Enrichment Values (%)")
-        plt.ylabel("Uranium Fraction (%)")
+        plt.ylabel("Uranium Concentration (%)")
         plt.title("Reactivity as a Function of Enrichment and Uranium Concentration in TOX Fuel")
         plt.savefig('heatmap.png',bbox_inches='tight')
         plt.show()
