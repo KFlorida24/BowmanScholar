@@ -368,14 +368,17 @@ def matMixFunInput():
         print(reactMat)
         print(reactMatValsOnly)
 
-        heatmap_Plot = sns.heatmap(keffMatValsOnly, center=1, cmap = "PiYG", xticklabels = enrichVals, yticklabels = pctLEUVals)
+
+        
+        heatmap_Plot = sns.heatmap(reactMatValsOnly, center=0, cmap = "PiYG", xticklabels = list(map(lambda enrichVals :str(enrichVals) + '%',100*enrichVals.round(2))), yticklabels = list(map(lambda pctLEUVals :str(pctLEUVals) + '%',100*pctLEUVals.round(2))))
         for ind, label in enumerate(heatmap_Plot.get_xticklabels()):
             if ind % 5 == 0:  # every 10th label is kept
                 label.set_visible(True)
-            else:
-                label.set_visible(False)
+        for ind, label in enumerate(heatmap_Plot.get_yticklabels()):
+            if ind % 5 == 0:  # every 10th label is kept
+                label.set_visible(True)
         plt.xlabel("Enrichment Values (%)")
-        plt.ylabel("Uranium Concentration (%)")
+        plt.ylabel("Uranium Fraction (%)")
         plt.title("Reactivity as a Function of Enrichment and Uranium Concentration in TOX Fuel")
         plt.savefig('heatmap.png',bbox_inches='tight')
         plt.show()
