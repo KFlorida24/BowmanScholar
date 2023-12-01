@@ -369,18 +369,18 @@ def matMixFunInput():
         print(reactMatValsOnly)
 
 
-        
+        xticklabels = list(map(lambda enrichVals :str(enrichVals) + '%',100*enrichVals.round(2)))
         heatmap_Plot = sns.heatmap(reactMatValsOnly, center=0, cmap = "PiYG", xticklabels = list(map(lambda enrichVals :str(enrichVals) + '%',100*enrichVals.round(2))), yticklabels = list(map(lambda pctLEUVals :str(pctLEUVals) + '%',100*pctLEUVals.round(2))))
-        heatmap_Plot.set_xticks([0, 4, 9, 14, 19, 24, 30, 34, 39])
-        heatmap_Plot.set_xticklabels([xticklabels(0),xticklabels(4),xticklabels(9),xticklabels(14),xticklabels(19),xticklabels(24),xticklabels(29),xticklabels(34),xticklabels(39)])
-        heatmap_Plot.set_yticks([0, 4, 9, 14, 19, 24, 30, 34, 39])
-        heatmap_Plot.set_yticklabels([yticklabels(0),yticklabels(4),yticklabels(9),yticklabels(14),yticklabels(19),yticklabels(24),yticklabels(29),yticklabels(34),yticklabels(39)])
-        #for ind, label in enumerate(heatmap_Plot.get_xticklabels()):
-        #    if ind % 5 == 0:  # every 5th label is kept
-        #        label.set_visible(True)
-        #for ind, label in enumerate(heatmap_Plot.get_yticklabels()):
-        #    if ind % 5 == 0:  # every 5th label is kept
-        #        label.set_visible(True)
+        for ind, label in enumerate(heatmap_Plot.get_xticklabels()):
+            if ind % 5 == 0:  # every 5th label is kept
+                label.set_visible(True)
+            else:
+                label.set_visible(False)
+        for ind, label in enumerate(heatmap_Plot.get_yticklabels()):
+            if ind % 5 == 0:  # every 5th label is kept
+                label.set_visible(True)
+            else:
+                label.set_visible(False)
         plt.xlabel("Enrichment Values (%)")
         plt.ylabel("Uranium Fraction (%)")
         plt.title("Reactivity as a Function of Enrichment and Uranium Concentration in TOX Fuel")
