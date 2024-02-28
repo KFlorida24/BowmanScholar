@@ -146,7 +146,14 @@ def matMixFunInput():
         U238MolW = 238. # Molecular Weight of U-238 [g/mol]
         ThO2MassRho = 9.7 # Mass Density of ThO2 [g/cm^3]
         graphMassRho = 2.26 # Mass Density of Graphite [g/cm^3]
-        he_CoolMassRho = 0.000178 # Mass Density of He @ 293K [g/cm^3]
+        he_Cool_Z = 1.00652 # He Compression Factor @750C and 6 MPa
+        # MW*P/(Z*R*T) from https://www.cedengineering.com/userfiles/H02-011%20-%20Calculation%20of%20Gas%20Density%20and%20Viscosity.pdf
+        he_Cool_MW = 4.003 # g/mol
+        press_homog = 6000 #kPa
+        temp_homog = 750 + 273.15
+        R = 8.314472 #L*kPa/K*mol or m^3*Pa/K*mol
+        he_CoolMassRho = he_Cool_MW*press_homog/(he_Cool_Z*temp_homog)/1000000 # Mass Density of He @ 293K [g/cm^3]
+        # Pressure density data from here https://backend.orbit.dtu.dk/ws/portalfiles/portal/52768509/ris_224.pdf
         avo = 0.6022 # Avogadro's Number
     
         i = 0
@@ -251,6 +258,7 @@ def matMixFunInput():
                 fuel.add_element('O', UThMixOAtomFrac, 'ao')
                 fuel.set_density('g/cm3', UThMixMassRho) # Based on assumption of fuel density within TRISO
                 fuel.volume = cubeVol
+                fuel.temperature = temp_homog
         
                 # Establish Graphite Moderator material
                 graph = openmc.Material(name='graph')
@@ -264,6 +272,7 @@ def matMixFunInput():
                 hel_Cool.add_nuclide('He3', 0.000002)
                 hel_Cool.add_nuclide('He4', 0.999998)
                 hel_Cool.set_density('g/cm3', he_CoolMassRho)
+                hel_Cool.temperature = temp_homog
 
                 #materials = openmc.Materials([fuel, graph, hel_Cool])
                 mixMat = openmc.Material.mix_materials([fuel,graph,hel_Cool],
