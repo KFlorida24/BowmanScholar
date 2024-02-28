@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<materials>
+  <material depletable="true" id="4268" name="fuel(0.0384)-graph(0.6016)-hel_Cool(0.36)">
+    <density units="g/cm3" value="1.759414714146341" />
+    <nuclide ao="0.0006433047421997163" name="Th232" />
+    <nuclide ao="0.0023897746814506146" name="U235" />
+    <nuclide ao="0.009587950914542447" name="U238" />
+    <nuclide ao="0.025232493935389205" name="O16" />
+    <nuclide ao="9.566740996350126e-06" name="O17" />
+    <nuclide ao="0.9620008514205404" name="C0" />
+    <nuclide ao="2.72115129762727e-10" name="He3" />
+    <nuclide ao="0.00013605729276623378" name="He4" />
+  </material>
+</materials>
