@@ -211,6 +211,7 @@ def matMixFunInput():
                 # Constants
                 vF_Pebbles_Core = 0.64 # Volume Fraction of Pebbles in Core (Max packing factor)
                 vF_TRISO_Pebbles = 0.4 # Volume Fraction of TRISO in Pebbles
+                # vF_TRISO_Pebbles = 0.5 # Volume Fraction of TRISO in Pebbles
                 vF_Fuel_TRISO = 0.15 # Volume Fraction of Fuel in TRISO
                 fuelVolFrac = vF_Pebbles_Core*vF_TRISO_Pebbles*vF_Fuel_TRISO # Volume Fraction of Fuel
                 graphVolFrac = vF_Pebbles_Core*(1 - (vF_TRISO_Pebbles*vF_Fuel_TRISO)) # Total Volume Fraction of Graphite
