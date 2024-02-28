@@ -326,7 +326,7 @@ def matMixFunInput():
                 settings.source = source
                 settings.batches = 100
                 settings.inactive = 10
-                settings.particles = 1000
+                settings.particles = 10000
             
                 settings.export_to_xml()
 
