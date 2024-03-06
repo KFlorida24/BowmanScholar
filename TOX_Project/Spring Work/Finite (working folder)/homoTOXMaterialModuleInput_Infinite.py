@@ -68,7 +68,7 @@ def matMixFunInput():
                 break
         while True:
             try:
-                enrichRunNum = int(input('Desired number of enrichments tested? (Press Enter key for default value of 2)') or 2)
+                enrichRunNum = int(input('Desired number packing factors tested? (Press Enter key for default value of 2)') or 2)
             except ValueError:
                 print("Please type in a valid number (must be an integer, no characters)")
                 continue
@@ -159,18 +159,20 @@ def matMixFunInput():
         i = 0
         j = 0
         enrichVals = np.linspace(UO2EnrichmentFirst, UO2EnrichmentLast, num=enrichRunNum, retstep=False)
+        packFactorVals = np.linspace(0.4, 0.7, num=enrichRunNum, retstep=False)
         pctLEUVals = np.linspace(pctLEUFirst, pctLEULast, num=fuelMixRunNum, retstep=False)
         print("Enrichment Values (%):", enrichVals*100)
+        print("Packing Factor Values: ", packFactorVals)
         print("Thorium %:", (1-pctLEUVals)*100)
 
         keffMatInit=np.zeros((enrichRunNum+1,fuelMixRunNum+1))
         keffMat = np.array((keffMatInit), dtype=float)
-        keffMat[1:, 0] = enrichVals
+        keffMat[1:, 0] = packFactorVals
         keffMat[0,1:] = pctLEUVals
         print(keffMat)
         reactMatInit=np.zeros((enrichRunNum+1,fuelMixRunNum+1))
         reactMat = np.array((reactMatInit), dtype=float)
-        reactMat[1:,0] = enrichVals
+        reactMat[1:,0] = packFactorVals
         reactMat[0,1:] = pctLEUVals
 
     
@@ -182,11 +184,11 @@ def matMixFunInput():
                 # Total Mixture Density
                 UThMixMassRho = (pctLEUVals[j]/UO2MassRho + pctTh/ThO2MassRho)**-1 # [g/cm]
                 # UO2 Atom Densities
-                UO2UMolW = ((enrichVals[i]/U235MolW) + ((1 - enrichVals[i])/U238MolW))**-1 # Molecular Weight of U in UO2 [g/mol]
+                UO2UMolW = ((.1975/U235MolW) + ((1 - .1975)/U238MolW))**-1 # Molecular Weight of U in UO2 [g/mol]
                 UO2MolW = UO2UMolW + 2*16 # Molecular Weight of UO2 [g/mol]
                 UO2OAtomRho = (UO2MassRho/UO2MolW)*2*avo # O Atom Density in UO2 [atom/b-cm]
-                UO2U235AtomRho = (enrichVals[i]*UO2MassRho*(UO2UMolW/UO2MolW)/U235MolW)*avo # U-235 Atom Density in UO2 [atom/b-cm] 
-                UO2U238AtomRho = ((1 - enrichVals[i])*UO2MassRho*(UO2UMolW/UO2MolW)/U238MolW)*avo # U-238 Atom Density in UO2 [atom/b-cm]
+                UO2U235AtomRho = (.1975*UO2MassRho*(UO2UMolW/UO2MolW)/U235MolW)*avo # U-235 Atom Density in UO2 [atom/b-cm] 
+                UO2U238AtomRho = ((1 - .1975)*UO2MassRho*(UO2UMolW/UO2MolW)/U238MolW)*avo # U-238 Atom Density in UO2 [atom/b-cm]
                 UO2U235AtomRhoFrac = UO2U235AtomRho/(UO2U235AtomRho+UO2U238AtomRho)
                 UO2U238AtomRhoFrac = UO2U238AtomRho/(UO2U235AtomRho+UO2U238AtomRho)
                 # UO2 ThO2 Mixture Atom Densities
@@ -210,7 +212,7 @@ def matMixFunInput():
                 ## Calculate Vol % ##
                 # Constants
                 vF_Pebbles_Core = 0.64 # Volume Fraction of Pebbles in Core (Max packing factor)
-                vF_TRISO_Pebbles = 0.4 # Volume Fraction of TRISO in Pebbles
+                vF_TRISO_Pebbles = packFactorVals[i]# Volume Fraction of TRISO in Pebbles
                 # vF_TRISO_Pebbles = 0.5 # Volume Fraction of TRISO in Pebbles
                 vF_Fuel_TRISO = 0.15 # Volume Fraction of Fuel in TRISO
                 fuelVolFrac = vF_Pebbles_Core*vF_TRISO_Pebbles*vF_Fuel_TRISO # Volume Fraction of Fuel
@@ -357,7 +359,7 @@ def matMixFunInput():
                
                 sp = openmc.StatePoint('statepoint.100.h5');
                 keffVal = sp.keff
-                print("{:.2f}".format(enrichVals[i]*100), "% Enrichment,", "{:.2f}".format(pctLEUVals[j]*100), "% Uranium (","{:.2f}".format((1-pctLEUVals[j])*100), "% Thorium ):", keffVal)
+                print("{:.2f}".format(packFactorVals[i]*100), "% Enrichment,", "{:.2f}".format(pctLEUVals[j]*100), "% Uranium (","{:.2f}".format((1-pctLEUVals[j])*100), "% Thorium ):", keffVal)
                 sep = '+/-'
            
                 keffValFloat = float(str(keffVal).split(sep, 1)[0])
@@ -365,6 +367,7 @@ def matMixFunInput():
        
                 keffMat[i+1,j+1]= keffValFloat
                 reactMat[i+1,j+1] = reactMatFloat
+                
                
                 sp.close()
            
@@ -375,12 +378,12 @@ def matMixFunInput():
         print(keffMat)
         print(keffMatValsOnly)
         reactMatValsOnly = reactMat[1:,1:]
+        reactMatTrans = np.transpose(reactMatValsOnly)
         print(reactMat)
         print(reactMatValsOnly)
 
 
-        xticklabels = list(map(lambda enrichVals :str(enrichVals) + '%',100*enrichVals.round(2)))
-        heatmap_Plot = sns.heatmap(reactMatValsOnly, center=0, cmap = "PiYG", xticklabels = list(map(lambda enrichVals :str(enrichVals) + '%',100*enrichVals.round(2))), yticklabels = list(map(lambda pctLEUVals :str(pctLEUVals) + '%',100*pctLEUVals.round(2))))
+        heatmap_Plot = sns.heatmap(reactMatTrans, center=0, cmap = "PiYG", xticklabels = list(map(lambda pctLEUVals :str(pctLEUVals) + '%',100*pctLEUVals.round(2))), yticklabels = list(map(lambda packFactorVals :str(packFactorVals) + '%',100*packFactorVals.round(2))))
         for ind, label in enumerate(heatmap_Plot.get_xticklabels()):
             if ind % 5 == 0:  # every 5th label is kept
                 label.set_visible(True)
@@ -391,8 +394,8 @@ def matMixFunInput():
                 label.set_visible(True)
             else:
                 label.set_visible(False)
-        plt.xlabel("Enrichment Values (%)")
-        plt.ylabel("Uranium Fraction (%)")
-        plt.title("Reactivity as a Function of Enrichment and Uranium Concentration in TOX Fuel")
+        plt.ylabel("TRISO Packing Factor Values (%)")
+        plt.xlabel("Uranium Fraction (%)")
+        plt.title("Reactivity as a Function of TRISO Packing Factor and Uranium Concentration in TOX Fuel")
         plt.savefig('heatmap.png',bbox_inches='tight')
         plt.show()

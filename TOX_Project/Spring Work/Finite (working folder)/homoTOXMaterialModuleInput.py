@@ -986,7 +986,7 @@ def matMixFunInput():
         ## Source ##
         # create a point source
         # ref: https://openmc.discourse.group/t/cylindrical-geometry-more-than-95-of-external-source-sites-sampled-were-rejected/1432
-        source = openmc.Source()
+        source = openmc.IndependentSource()
         rad_src = openmc.stats.Uniform(a=0, b=cyl_Radius)
         phi_src = openmc.stats.Uniform(a=0, b=2*math.pi)
         z_src = openmc.stats.Uniform(a=0, b=cyl_Length)
