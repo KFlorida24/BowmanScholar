@@ -224,10 +224,10 @@ def matMixFunInput():
             
                 # Parameters
                 # Cube
-                matCubeL = 1 # [cm]
+                matCubeL = 10. # [cm]
                 cubeVol = matCubeL**3 # [cm^3]
                 # Sphere
-                matSphereRad = 1 # [cm]
+                matSphereRad = 10. # [cm]
                 sphereVol = (4/3)*math.pi*matSphereRad**3
             
                 # Volume Output
@@ -262,7 +262,7 @@ def matMixFunInput():
                 fuel.add_nuclide('U238', UThMixU238AtomFrac, 'ao')
                 fuel.add_element('O', UThMixOAtomFrac, 'ao')
                 fuel.set_density('g/cm3', UThMixMassRho) # Based on assumption of fuel density within TRISO
-                fuel.volume = cubeVol
+                #fuel.volume = cubeVol
                 fuel.temperature = temp_homog
         
                 # Establish Graphite Moderator material
@@ -281,7 +281,7 @@ def matMixFunInput():
 
                 #materials = openmc.Materials([fuel, graph, hel_Cool])
                 mixMat = openmc.Material.mix_materials([fuel,graph,hel_Cool],
-                                                   fracs=[fuelVolFrac,graphVolFrac,hel_CoolCubeVol],
+                                                   fracs=[fuelVolFrac,graphVolFrac,hel_CoolVolFrac],
                                                   percent_type='vo',
                                                   )
             
@@ -309,9 +309,9 @@ def matMixFunInput():
             
             
                 ## Define Bounding Geometry ##
-                matBox = openmc.model.RectangularParallelepiped(-matCubeL/2, matCubeL/2, 
-                                                            -matCubeL/2, matCubeL/2, 
-                                                            -matCubeL/2, matCubeL/2,
+                matBox = openmc.model.RectangularParallelepiped(-matCubeL/2., matCubeL/2., 
+                                                            -matCubeL/2., matCubeL/2., 
+                                                            -matCubeL/2., matCubeL/2.,
                                                             boundary_type='reflective')
             
                 material_region = -matBox
@@ -399,8 +399,8 @@ def matMixFunInput():
                 label.set_visible(True)
             else:
                 label.set_visible(False)
-        plt.ylabel("TRISO Packing Factor Values (%)")
-        plt.xlabel("Uranium Fraction (%)")
+        plt.ylabel("TOX Thorium Fraction (%) ??")
+        plt.xlabel("Particle Packing Values (%)")
         plt.title("Reactivity as a Function of TRISO Packing Factor and Uranium Concentration in TOX Fuel")
         plt.savefig('heatmap.png',bbox_inches='tight')
         plt.show()
