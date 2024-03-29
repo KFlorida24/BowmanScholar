@@ -68,11 +68,11 @@ def matMixFunInput():
                 break
         while True:
             try:
-                enrichRunNum = int(input('Desired number packing factors tested? (Press Enter key for default value of 2)') or 2)
+                tRISO_Pack_RunNum = int(input('Desired number packing factors tested? (Press Enter key for default value of 2)') or 2)
             except ValueError:
                 print("Please type in a valid number (must be an integer, no characters)")
                 continue
-            if enrichRunNum < 2:
+            if tRISO_Pack_RunNum < 2:
                 print("# of runs must be more than 1")
                 continue
             else:
@@ -158,25 +158,25 @@ def matMixFunInput():
     
         i = 0
         j = 0
-        enrichVals = np.linspace(UO2EnrichmentFirst, UO2EnrichmentLast, num=enrichRunNum, retstep=False)
-        packFactorVals = np.linspace(0.4, 0.7, num=enrichRunNum, retstep=False)
+        enrichVals = np.linspace(UO2EnrichmentFirst, UO2EnrichmentLast, num=tRISO_Pack_RunNum, retstep=False)
+        packFactorVals = np.linspace(0.4, 0.7, num=tRISO_Pack_RunNum, retstep=False)
         pctLEUVals = np.linspace(pctLEUFirst, pctLEULast, num=fuelMixRunNum, retstep=False)
         print("Enrichment Values (%):", enrichVals*100)
         print("Packing Factor Values: ", packFactorVals)
         print("Thorium %:", (1-pctLEUVals)*100)
 
-        keffMatInit=np.zeros((enrichRunNum+1,fuelMixRunNum+1))
+        keffMatInit=np.zeros((tRISO_Pack_RunNum+1,fuelMixRunNum+1))
         keffMat = np.array((keffMatInit), dtype=float)
-        keffMat[1:, 0] = packFactorVals
+        keffMat[1:,0] = packFactorVals
         keffMat[0,1:] = pctLEUVals
         print(keffMat)
-        reactMatInit=np.zeros((enrichRunNum+1,fuelMixRunNum+1))
+        reactMatInit=np.zeros((tRISO_Pack_RunNum+1,fuelMixRunNum+1))
         reactMat = np.array((reactMatInit), dtype=float)
         reactMat[1:,0] = packFactorVals
         reactMat[0,1:] = pctLEUVals
 
     
-        while i < enrichRunNum:
+        while i < tRISO_Pack_RunNum:
             while j < fuelMixRunNum:
                 # Results of Constants and Input Parameters
                 # Weight percent of Th in LEU mixture
@@ -216,9 +216,11 @@ def matMixFunInput():
                 # vF_TRISO_Pebbles = 0.5 # Volume Fraction of TRISO in Pebbles
                 vF_Fuel_TRISO = 0.15 # Volume Fraction of Fuel in TRISO
                 fuelVolFrac = vF_Pebbles_Core*vF_TRISO_Pebbles*vF_Fuel_TRISO # Volume Fraction of Fuel
+                print("Volume Fraction of Fuel: " + "{:.2f}".format(fuelVolFrac*100) + "%")
                 graphVolFrac = vF_Pebbles_Core*(1 - (vF_TRISO_Pebbles*vF_Fuel_TRISO)) # Total Volume Fraction of Graphite
                 hel_CoolVolFrac = 1 - (fuelVolFrac + graphVolFrac) # Total Volume Fraction of Helium
                 totalVolFrac = fuelVolFrac + graphVolFrac + hel_CoolVolFrac # Total Volume
+                print("Total Volume Fraction (should equal 100%): " + "{:.2f}".format(totalVolFrac*100) + "%")
             
                 # Parameters
                 # Cube
@@ -332,7 +334,7 @@ def matMixFunInput():
                 ## Source ##
                 # create a point source
                 point = openmc.stats.Point((0,0,0))
-                source = openmc.Source(space=point)
+                source = openmc.IndependentSource(space=point)
             
                 settings = openmc.Settings()
                 settings.source = source
@@ -359,7 +361,7 @@ def matMixFunInput():
                
                 sp = openmc.StatePoint('statepoint.100.h5');
                 keffVal = sp.keff
-                print("{:.2f}".format(packFactorVals[i]*100), "% Enrichment,", "{:.2f}".format(pctLEUVals[j]*100), "% Uranium (","{:.2f}".format((1-pctLEUVals[j])*100), "% Thorium ):", keffVal)
+                print("{:.2f}".format(packFactorVals[i]*100), "% Packing Factor,", "{:.2f}".format(pctLEUVals[j]*100), "% Uranium (","{:.2f}".format((1-pctLEUVals[j])*100), "% Thorium ):", keffVal)
                 sep = '+/-'
            
                 keffValFloat = float(str(keffVal).split(sep, 1)[0])
@@ -372,25 +374,28 @@ def matMixFunInput():
                 sp.close()
            
                 j += 1
+                print("Run number " + str(j))
             j = 0
             i += 1
         keffMatValsOnly = keffMat[1:,1:]
         print(keffMat)
         print(keffMatValsOnly)
         reactMatValsOnly = reactMat[1:,1:]
-        reactMatTrans = np.transpose(reactMatValsOnly)
+        # reactMatTrans = np.transpose(reactMatValsOnly)
         print(reactMat)
         print(reactMatValsOnly)
 
 
-        heatmap_Plot = sns.heatmap(reactMatTrans, center=0, cmap = "PiYG", xticklabels = list(map(lambda pctLEUVals :str(pctLEUVals) + '%',100*pctLEUVals.round(2))), yticklabels = list(map(lambda packFactorVals :str(packFactorVals) + '%',100*packFactorVals.round(2))))
+        heatmap_Plot = sns.heatmap(reactMatValsOnly, center=0, cmap = "PiYG", xticklabels = list(map(lambda packFactorVals :str(packFactorVals) + '%',100*packFactorVals.round(2))), yticklabels = list(map(lambda pctLEUVals :str(pctLEUVals) + '%',100*pctLEUVals.round(2))))
         for ind, label in enumerate(heatmap_Plot.get_xticklabels()):
-            if ind % 5 == 0:  # every 5th label is kept
+            label_num_1 = 1; # number of label iterations
+            if ind % label_num_1 == 0:  # every nth label is kept
                 label.set_visible(True)
             else:
                 label.set_visible(False)
         for ind, label in enumerate(heatmap_Plot.get_yticklabels()):
-            if ind % 5 == 0:  # every 5th label is kept
+            label_num_2 = 1; # number of label iterations
+            if ind % label_num_2 == 0:  # every nth label is kept
                 label.set_visible(True)
             else:
                 label.set_visible(False)
