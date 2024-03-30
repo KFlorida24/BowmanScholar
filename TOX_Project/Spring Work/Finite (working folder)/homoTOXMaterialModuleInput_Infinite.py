@@ -174,6 +174,14 @@ def matMixFunInput():
         reactMat = np.array((reactMatInit), dtype=float)
         reactMat[1:,0] = packFactorVals
         reactMat[0,1:] = pctLEUVals
+        
+        # arrays to hold tally data
+        efilter_values = [0.0, 10, 14.0e6]
+        numEbins = len(efilter_values)-1
+        th232_cap_data_th = np.zeros((tRISO_Pack_RunNum,fuelMixRunNum))
+        u238_cap_data_th = np.zeros_like(th232_cap_data_th)
+        th232_cap_data_fast = np.zeros_like(th232_cap_data_th)
+        u238_cap_data_fast = np.zeros_like(th232_cap_data_th)
 
     
         while i < tRISO_Pack_RunNum:
@@ -340,28 +348,53 @@ def matMixFunInput():
                 settings.source = source
                 settings.batches = 100
                 settings.inactive = 10
-                settings.particles = 1000
+                settings.particles = 10000
             
                 settings.export_to_xml()
 
                 ## Tallies ##
             
                 cell_filter = openmc.CellFilter(material_Geom)
+               
+                efilter = openmc.EnergyFilter(values=efilter_values)
+                
+                #flux_tally = openmc.Tally(name='flux')
+                #flux_tally.scores =['flux']
+                #flux_tally.filters = [cell_filter, efilter]
+                
+                th232_capture_tally = openmc.Tally(name='Th232_capture')
+                th232_capture_tally.scores = ['(n,gamma)']
+                th232_capture_tally.filters = [cell_filter, efilter]
+                
+                u238_capture_tally = openmc.Tally(name='U238_captuer')
+                u238_capture_tally.scores = ['(n,gamma)']
+                u238_capture_tally.filters = [cell_filter, efilter]
+                                       
+                
             
-                tally = openmc.Tally()
-                tally.filters = [cell_filter]
+                # this tally basically scores most interactions with U235
+                # but does not distinguish them
+                # maybe not terribly useful
+                #tally = openmc.Tally()
+                #tally.filters = [cell_filter]
+                #tally.nuclides = ['U235']
+                #tally.scores = ['total','fission','absorption','(n,gamma)']
             
-                tally.nuclides = ['U235']
-                tally.scores = ['total','fission','absorption','(n,gamma)']
-            
-                tallies = openmc.Tallies([tally])
+
+
+                tallies = openmc.Tallies([th232_capture_tally,
+                                          u238_capture_tally])
+                
                 tallies.export_to_xml()
 
                 openmc.run(output=False)
-               
-                sp = openmc.StatePoint('statepoint.100.h5');
+                sp_filename = 'statepoint.' + str(settings.batches) + '.h5'
+                sp = openmc.StatePoint(sp_filename);
                 keffVal = sp.keff
-                print("{:.2f}".format(packFactorVals[i]*100), "% Packing Factor,", "{:.2f}".format(pctLEUVals[j]*100), "% Uranium (","{:.2f}".format((1-pctLEUVals[j])*100), "% Thorium ):", keffVal)
+                print("{:.2f}".format(packFactorVals[i]*100), 
+                      "% Packing Factor,", "{:.2f}".format(pctLEUVals[j]*100), 
+                      "% Uranium (","{:.2f}".format((1-pctLEUVals[j])*100), 
+                      "% Thorium ):", keffVal)
                 sep = '+/-'
            
                 keffValFloat = float(str(keffVal).split(sep, 1)[0])
@@ -369,6 +402,26 @@ def matMixFunInput():
        
                 keffMat[i+1,j+1]= keffValFloat
                 reactMat[i+1,j+1] = reactMatFloat
+                
+                # get capture tally data
+                th232_cap = sp.get_tally(name=th232_capture_tally.name)
+                th232_cap_df = th232_cap.get_pandas_dataframe()
+                th232_cap_vals = th232_cap_df['mean'].to_numpy()
+                
+                u238_cap = sp.get_tally(name=u238_capture_tally.name)
+                u238_cap_df = u238_cap.get_pandas_dataframe()
+                u238_cap_vals = u238_cap_df['mean'].to_numpy()
+                
+                
+                #for k in range(numEbins):
+                #    th232_cap_data[i,j,k] = th232_cap_vals[k]
+                #    u238_cap_data[i,j,k] = u238_cap_vals[k]
+                
+                th232_cap_data_th[i,j] = th232_cap_vals[0];
+                th232_cap_data_fast[i,j] = th232_cap_vals[1];
+                
+                u238_cap_data_th[i,j] = u238_cap_vals[0];
+                u238_cap_data_fast[i,j]= u238_cap_vals[1];
                 
                
                 sp.close()
@@ -386,7 +439,12 @@ def matMixFunInput():
         print(reactMatValsOnly)
 
 
-        heatmap_Plot = sns.heatmap(reactMatValsOnly, center=0, cmap = "PiYG", xticklabels = list(map(lambda packFactorVals :str(packFactorVals) + '%',100*packFactorVals.round(2))), yticklabels = list(map(lambda pctLEUVals :str(pctLEUVals) + '%',100*pctLEUVals.round(2))))
+        heatmap_Plot = sns.heatmap(reactMatValsOnly, center=0, cmap = "PiYG", 
+                                   xticklabels = 
+                                   list(map(lambda packFactorVals :str(packFactorVals) + '%',
+                                   100*packFactorVals.round(2))), 
+                                   yticklabels = list(map(lambda pctLEUVals :str(pctLEUVals) + '%',
+                                   100*pctLEUVals.round(2))))
         for ind, label in enumerate(heatmap_Plot.get_xticklabels()):
             label_num_1 = 1; # number of label iterations
             if ind % label_num_1 == 0:  # every nth label is kept
@@ -404,3 +462,15 @@ def matMixFunInput():
         plt.title("Reactivity as a Function of TRISO Packing Factor and Uranium Concentration in TOX Fuel")
         plt.savefig('heatmap.png',bbox_inches='tight')
         plt.show()
+        
+        print("Th232 Thermal Capture Tally Data:")
+        print(th232_cap_data_th)
+        
+        print('Th232 Fast Capture Data:')
+        print(th232_cap_data_fast)
+        
+        print("U238 Thermal Capture Tally Data:")
+        print(u238_cap_data_th)
+        
+        print('U238 Fast Capture Data:')
+        print(u238_cap_data_fast)

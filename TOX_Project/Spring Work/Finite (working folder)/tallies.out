@@ -1,8 +1,18 @@
- ===========================>     TALLY 43     <============================
+ ====================>     TALLY 73: TH232_CAPTURE     <====================
 
- Cell 88
-   U235
-     Total Reaction Rate                  1.2183 +/- 0.00276198
-     Fission Rate                         0.432928 +/- 0.00151717
-     Absorption Rate                      0.628568 +/- 0.00217694
-     (n,gamma)                            0.195641 +/- 0.000737752
+ Cell 70
+   Incoming Energy [0, 10)
+     Total Material
+       (n,gamma)                            0.0616935 +/- 0.000270399
+   Incoming Energy [10, 14000000)
+     Total Material
+       (n,gamma)                            0.489358 +/- 0.000508611
+ ====================>     TALLY 74: U238_CAPTUER     <=====================
+
+ Cell 70
+   Incoming Energy [0, 10)
+     Total Material
+       (n,gamma)                            0.0616935 +/- 0.000270399
+   Incoming Energy [10, 14000000)
+     Total Material
+       (n,gamma)                            0.489358 +/- 0.000508611
