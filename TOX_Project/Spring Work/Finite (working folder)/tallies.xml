@@ -1,11 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <tallies>
-  <filter id="53" type="cell">
-    <bins>106</bins>
+  <filter id="69" type="cell">
+    <bins>70</bins>
   </filter>
-  <tally id="53">
-    <filters>53</filters>
-    <nuclides>U235</nuclides>
-    <scores>total fission absorption (n,gamma)</scores>
+  <filter id="70" type="energy">
+    <bins>0.0 10.0 14000000.0</bins>
+  </filter>
+  <tally id="73" name="Th232_capture">
+    <filters>69 70</filters>
+    <scores>(n,gamma)</scores>
+  </tally>
+  <tally id="74" name="U238_captuer">
+    <filters>69 70</filters>
+    <scores>(n,gamma)</scores>
   </tally>
 </tallies>
