@@ -152,7 +152,7 @@ def matMixFunInput():
         press_homog = 6000 #kPa
         temp_homog = 750 + 273.15
         R = 8.314472 #L*kPa/K*mol or m^3*Pa/K*mol
-        he_CoolMassRho = he_Cool_MW*press_homog/(he_Cool_Z*temp_homog)/1000000 # Mass Density of He @ 293K [g/cm^3]
+        he_CoolMassRho = he_Cool_MW*press_homog/(he_Cool_Z*temp_homog)/1000000 # Mass Density of He @ 1073K and 6000 kPa [g/cm^3]
         # Pressure density data from here https://backend.orbit.dtu.dk/ws/portalfiles/portal/52768509/ris_224.pdf
         avo = 0.6022 # Avogadro's Number
     
@@ -183,9 +183,11 @@ def matMixFunInput():
         th232_cap_data_fast = np.zeros_like(th232_cap_data_th)
         u238_cap_data_fast = np.zeros_like(th232_cap_data_th)
 
-    
+        runNum = 0
         while i < tRISO_Pack_RunNum:
             while j < fuelMixRunNum:
+                runNum += 1
+                print("Run number " + str(runNum))
                 # Results of Constants and Input Parameters
                 # Weight percent of Th in LEU mixture
                 pctTh = 1 - pctLEUVals[j]
@@ -226,13 +228,15 @@ def matMixFunInput():
                 fuelVolFrac = vF_Pebbles_Core*vF_TRISO_Pebbles*vF_Fuel_TRISO # Volume Fraction of Fuel
                 print("Volume Fraction of Fuel: " + "{:.2f}".format(fuelVolFrac*100) + "%")
                 graphVolFrac = vF_Pebbles_Core*(1 - (vF_TRISO_Pebbles*vF_Fuel_TRISO)) # Total Volume Fraction of Graphite
+                print("Volume Fraction of Graphite: " + "{:.2f}".format(graphVolFrac*100) + "%")
                 hel_CoolVolFrac = 1 - (fuelVolFrac + graphVolFrac) # Total Volume Fraction of Helium
+                print("Volume Fraction of Helium: " + "{:.2f}".format(hel_CoolVolFrac*100) + "%")
                 totalVolFrac = fuelVolFrac + graphVolFrac + hel_CoolVolFrac # Total Volume
                 print("Total Volume Fraction (should equal 100%): " + "{:.2f}".format(totalVolFrac*100) + "%")
             
                 # Parameters
                 # Cube
-                matCubeL = 10. # [cm]
+                matCubeL = 100. # [cm]
                 cubeVol = matCubeL**3 # [cm^3]
                 # Sphere
                 matSphereRad = 10. # [cm]
@@ -251,9 +255,9 @@ def matMixFunInput():
                 totalSphereVol = fuelSphereVol + graphSphereVol + hel_CoolSphereVol
                 # Mass Output
                 #Cube
-                fuelCubeMass = UThMixMassRho*graphCubeVol
+                fuelCubeMass = UThMixMassRho*fuelCubeVol
                 graphCubeMass = graphMassRho*graphCubeVol
-                hel_CoolCubeMass = he_CoolMassRho*graphCubeVol
+                hel_CoolCubeMass = he_CoolMassRho*hel_CoolCubeVol
                 totalCubeMass = fuelCubeMass + graphCubeMass + hel_CoolCubeMass
                 #Sphere
                 fuelSphereMass = UThMixMassRho*graphSphereVol
@@ -301,7 +305,7 @@ def matMixFunInput():
         
         
                 ## Define Universe Geometry ##
-                l_cube = 2.0;
+                l_cube = 2;
                 universeCube = openmc.model.RectangularParallelepiped(-l_cube, l_cube, -l_cube, l_cube, -l_cube, l_cube)
             
                 insideCube = -universeCube
@@ -427,7 +431,7 @@ def matMixFunInput():
                 sp.close()
            
                 j += 1
-                print("Run number " + str(j))
+                
             j = 0
             i += 1
         keffMatValsOnly = keffMat[1:,1:]
@@ -457,7 +461,7 @@ def matMixFunInput():
                 label.set_visible(True)
             else:
                 label.set_visible(False)
-        plt.ylabel("TOX Thorium Fraction (%) ??")
+        plt.ylabel("TOX Thorium Fraction (%)")
         plt.xlabel("Particle Packing Values (%)")
         plt.title("Reactivity as a Function of TRISO Packing Factor and Uranium Concentration in TOX Fuel")
         plt.savefig('heatmap.png',bbox_inches='tight')
