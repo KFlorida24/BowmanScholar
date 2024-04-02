@@ -450,13 +450,13 @@ def matMixFunInput():
                                    yticklabels = list(map(lambda pctLEUVals :str(pctLEUVals) + '%',
                                    100*pctLEUVals.round(2))))
         for ind, label in enumerate(heatmap_Plot.get_xticklabels()):
-            label_num_1 = 1; # number of label iterations
+            label_num_1 = 2; # number of label iterations
             if ind % label_num_1 == 0:  # every nth label is kept
                 label.set_visible(True)
             else:
                 label.set_visible(False)
         for ind, label in enumerate(heatmap_Plot.get_yticklabels()):
-            label_num_2 = 1; # number of label iterations
+            label_num_2 = 2; # number of label iterations
             if ind % label_num_2 == 0:  # every nth label is kept
                 label.set_visible(True)
             else:

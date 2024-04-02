@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <geometry>
-  <cell id="92" material="184" name="material_Geom" region="-548 547 -550 549 -552 551" universe="92"/>
-  <surface boundary="reflective" coeffs="-50.0" id="547" type="x-plane"/>
-  <surface boundary="reflective" coeffs="50.0" id="548" type="x-plane"/>
-  <surface boundary="reflective" coeffs="-50.0" id="549" type="y-plane"/>
-  <surface boundary="reflective" coeffs="50.0" id="550" type="y-plane"/>
-  <surface boundary="reflective" coeffs="-50.0" id="551" type="z-plane"/>
-  <surface boundary="reflective" coeffs="50.0" id="552" type="z-plane"/>
+  <cell id="292" material="584" name="material_Geom" region="-1748 1747 -1750 1749 -1752 1751" universe="292"/>
+  <surface boundary="reflective" coeffs="-50.0" id="1747" type="x-plane"/>
+  <surface boundary="reflective" coeffs="50.0" id="1748" type="x-plane"/>
+  <surface boundary="reflective" coeffs="-50.0" id="1749" type="y-plane"/>
+  <surface boundary="reflective" coeffs="50.0" id="1750" type="y-plane"/>
+  <surface boundary="reflective" coeffs="-50.0" id="1751" type="z-plane"/>
+  <surface boundary="reflective" coeffs="50.0" id="1752" type="z-plane"/>
 </geometry>
