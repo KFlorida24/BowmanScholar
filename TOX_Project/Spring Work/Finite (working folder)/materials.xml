@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <materials>
-  <material depletable="true" id="584" name="fuel(0.0672)-graph(0.5728)-hel_Cool(0.36)">
+  <material depletable="true" id="632" name="fuel(0.0672)-graph(0.5728)-hel_Cool(0.36)">
     <density units="g/cm3" value="1.9940720058565073"/>
     <nuclide ao="0.0011461552275653733" name="Th232"/>
     <nuclide ao="0.00425778416381959" name="U235"/>

@@ -207,11 +207,15 @@ def matMixFunInput():
                 UThMixU235AtomRho = (pctLEUVals[j]*UThMixMassRho/UO2MolW)*avo*UO2U235AtomRhoFrac # Uranium Atom Density in Fuel Mixture [atom/b-cm]
                 UThMixU238AtomRho = (pctLEUVals[j]*UThMixMassRho/UO2MolW)*avo*UO2U238AtomRhoFrac # Uranium Atom Density in Fuel Mixture [atom/b-cm]
                 # UO2 ThO2 Mixture Atom Fractions
-                # Normalized to 1
+                # Normalzed to 1
                 UThMixOAtomFrac = UThMixOAtomRho/(UThMixOAtomRho + UThMixThAtomRho + UThMixU235AtomRho + UThMixU238AtomRho) # Oxygen Atom Fraction in Fuel Mixture [atom/b-cm]
+                print("Atom Fraction of Oxygen: " + "{:.2f}".format(UThMixOAtomFrac*100) + "%")
                 UThMixThAtomFrac = UThMixThAtomRho/(UThMixOAtomRho + UThMixThAtomRho + UThMixU235AtomRho + UThMixU238AtomRho) # Uranium Atom Fraction in Fuel Mixture [atom/b-cm] 
+                print("Atom Fraction of Thorium: " + "{:.2f}".format(UThMixThAtomFrac*100) + "%")
                 UThMixU235AtomFrac = UThMixU235AtomRho/(UThMixOAtomRho + UThMixThAtomRho + UThMixU235AtomRho + UThMixU238AtomRho) # Uranium Atom Fraction in Fuel Mixture [atom/b-cm]
+                print("Atom Fraction of U-235: " + "{:.2f}".format(UThMixU235AtomFrac*100) + "%")
                 UThMixU238AtomFrac = UThMixU238AtomRho/(UThMixOAtomRho + UThMixThAtomRho + UThMixU235AtomRho + UThMixU238AtomRho) # Uranium Atom Density in Fuel Mixture [atom/b-cm]
+                print("Atom Fraction of U-238: " + "{:.2f}".format(UThMixU238AtomFrac*100) + "%\n")
                 # Normalized to 3
                 UThMixOAtomFrac3 = UThMixOAtomFrac*3 # Oxygen Atom Fraction in Fuel Mixture [atom/b-cm]
                 UThMixU235AtomFrac3 = UThMixU235AtomFrac*3 # Uranium Atom Fraction in Fuel Mixture [atom/b-cm] 
@@ -302,6 +306,7 @@ def matMixFunInput():
                 materials += [mixMat]
             
                 materials.export_to_xml()
+                #print(materials)
         
         
                 ## Define Universe Geometry ##

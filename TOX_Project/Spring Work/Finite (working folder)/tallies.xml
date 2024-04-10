@@ -1,17 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <tallies>
-  <filter id="291" type="cell">
-    <bins>292</bins>
+  <filter id="315" type="cell">
+    <bins>316</bins>
   </filter>
-  <filter id="292" type="energy">
+  <filter id="316" type="energy">
     <bins>0.0 10.0 14000000.0</bins>
   </filter>
-  <tally id="291" name="Th232_capture">
-    <filters>291 292</filters>
+  <tally id="315" name="Th232_capture">
+    <filters>315 316</filters>
     <scores>(n,gamma)</scores>
   </tally>
-  <tally id="292" name="U238_captuer">
-    <filters>291 292</filters>
+  <tally id="316" name="U238_captuer">
+    <filters>315 316</filters>
     <scores>(n,gamma)</scores>
   </tally>
 </tallies>
