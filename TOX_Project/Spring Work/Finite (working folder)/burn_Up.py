@@ -36,7 +36,7 @@ avo = 0.6022 # Avogadro's Number
 
 # Volume Fraction Constants
 vF_Pebbles_Core = 2./3 # Volume Fraction of Pebbles in Core (Max packing factor)
-vF_TRISO_Pebbles = 0.7 # Volume Fraction of TRISO in Pebbles
+vF_TRISO_Pebbles = 0.15 # Volume Fraction of TRISO in Pebbles
 vF_Fuel_TRISO = 0.15 # Volume Fraction of Fuel in TRISO
 fuelVolFrac = vF_Pebbles_Core*vF_TRISO_Pebbles*vF_Fuel_TRISO # Volume Fraction of Fuel
 graphVolFrac = vF_Pebbles_Core*(1 - (vF_TRISO_Pebbles*vF_Fuel_TRISO)) # Total Volume Fraction of Graphite
@@ -45,7 +45,7 @@ totalVolFrac = fuelVolFrac + graphVolFrac + hel_CoolVolFrac # Total Volume
 
 UO2MassRho = 10.45
 enrichVal = 19.75/100
-pctLEUVal = 50/100
+pctLEUVal = 60/100
 
 # Potential 3D Plot
 #x = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
@@ -175,7 +175,7 @@ hel_Cool.temperature = temp_homog
 mixMat = openmc.Material.mix_materials([fuel,graph,hel_Cool],
                                    fracs=[fuelVolFrac,graphVolFrac,hel_CoolVolFrac],
                                   percent_type='vo',
-                                  )
+                                  name = 'mixMat_Fuel')
 mixMat.volume = totalCylinderVol
 
 # Define Cladding Material
@@ -355,7 +355,7 @@ time_steps = [0.5*days,0.5*days,1*days,5*days,
               1*days,6*days,23*days,335*days,365*days];
 cecm = openmc.deplete.CECMIntegrator(operator,time_steps,power_density=power_density);
 
-repeat_depletion = True
+repeat_depletion = False
 
 
 if(repeat_depletion):
@@ -373,7 +373,7 @@ mat_tree = et.parse('BurnedMaterials15.xml')
 root = mat_tree.getroot()
 i=0
 for child in root:
-    if child.attrib['name']=='fuel_compact':
+    if child.attrib['name']=='mixMat_Fuel':
         uo2_elem = root[i]
     i+=1
     

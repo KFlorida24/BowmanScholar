@@ -1,14 +1,42 @@
 <?xml version='1.0' encoding='utf-8'?>
 <materials>
-  <material depletable="true" id="116" name="fuel(0.096)-graph(0.544)-hel_Cool(0.36)">
-    <density units="g/cm3" value="2.2287849814662635"/>
-    <nuclide ao="0.001667335655408242" name="Th232"/>
-    <nuclide ao="0.006193886463746077" name="U235"/>
-    <nuclide ao="0.024850325784101974" name="U238"/>
-    <nuclide ao="0.06539830045320191" name="O16"/>
-    <nuclide ao="2.4795353310668274e-05" name="O17"/>
-    <nuclide ao="0.9018468744977118" name="C0"/>
-    <nuclide ao="3.696358503848312e-11" name="He3"/>
-    <nuclide ao="1.8481755555656527e-05" name="He4"/>
+  <material depletable="true" id="4" name="mixMat_Fuel" volume="31415926.535897933">
+    <density units="g/cm3" value="1.6248219408337128"/>
+    <nuclide ao="0.0018527499547479763" name="Th232"/>
+    <nuclide ao="0.0005433687680195127" name="U235"/>
+    <nuclide ao="0.0021800352630332908" name="U238"/>
+    <nuclide ao="0.009148839246880322" name="O16"/>
+    <nuclide ao="3.4687247212369915e-06" name="O17"/>
+    <nuclide ao="0.9862559155422047" name="C0"/>
+    <nuclide ao="3.1245000785956895e-11" name="He3"/>
+    <nuclide ao="1.5622469147977662e-05" name="He4"/>
+  </material>
+  <material id="5" name="cladMat" volume="8498008.127960399">
+    <density units="g/cm3" value="6.56"/>
+    <nuclide ao="0.505223565" name="Zr90"/>
+    <nuclide ao="0.110177034" name="Zr91"/>
+    <nuclide ao="0.16840785500000002" name="Zr92"/>
+    <nuclide ao="0.170666386" name="Zr94"/>
+    <nuclide ao="0.02749516" name="Zr96"/>
+    <nuclide ao="0.00014549999999999999" name="Sn112"/>
+    <nuclide ao="9.9e-05" name="Sn114"/>
+    <nuclide ao="5.099999999999999e-05" name="Sn115"/>
+    <nuclide ao="0.0021809999999999998" name="Sn116"/>
+    <nuclide ao="0.0011519999999999998" name="Sn117"/>
+    <nuclide ao="0.003633" name="Sn118"/>
+    <nuclide ao="0.0012885" name="Sn119"/>
+    <nuclide ao="0.004887" name="Sn120"/>
+    <nuclide ao="0.0006945" name="Sn122"/>
+    <nuclide ao="0.0008685" name="Sn124"/>
+    <nuclide ao="0.00011690000000000001" name="Fe54"/>
+    <nuclide ao="0.00183508" name="Fe56"/>
+    <nuclide ao="4.2380000000000004e-05" name="Fe57"/>
+    <nuclide ao="5.64e-06" name="Fe58"/>
+    <nuclide ao="4.3450000000000006e-05" name="Cr50"/>
+    <nuclide ao="0.00083789" name="Cr52"/>
+    <nuclide ao="9.501e-05" name="Cr53"/>
+    <nuclide ao="2.3650000000000002e-05" name="Cr54"/>
+    <nuclide ao="2.998863e-05" name="O16"/>
+    <nuclide ao="1.137e-08" name="O17"/>
   </material>
 </materials>

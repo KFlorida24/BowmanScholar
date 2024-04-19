@@ -1,18 +1,18 @@
- ====================>     TALLY 57: TH232_CAPTURE     <====================
+ ====================>     TALLY 1: TH232_CAPTURE     <=====================
 
- Cell 58
+ Cell 2
    Incoming Energy [0, 10)
      Total Material
-       (n,gamma)                            0.0315849 +/- 0.000197435
+       (n,gamma)                            0.163856 +/- 0.000373098
    Incoming Energy [10, 14000000)
      Total Material
-       (n,gamma)                            0.505746 +/- 0.000570563
- ====================>     TALLY 58: U238_CAPTUER     <=====================
+       (n,gamma)                            0.268681 +/- 0.000385388
+ =====================>     TALLY 2: U238_CAPTUER     <=====================
 
- Cell 58
+ Cell 2
    Incoming Energy [0, 10)
      Total Material
-       (n,gamma)                            0.0315849 +/- 0.000197435
+       (n,gamma)                            0.163856 +/- 0.000373098
    Incoming Energy [10, 14000000)
      Total Material
-       (n,gamma)                            0.505746 +/- 0.000570563
+       (n,gamma)                            0.268681 +/- 0.000385388
