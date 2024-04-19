@@ -159,7 +159,7 @@ def matMixFunInput():
         i = 0
         j = 0
         enrichVals = np.linspace(UO2EnrichmentFirst, UO2EnrichmentLast, num=tRISO_Pack_RunNum, retstep=False)
-        packFactorVals = np.linspace(0.4, 0.7, num=tRISO_Pack_RunNum, retstep=False)
+        packFactorVals = np.linspace(0.01, 1, num=tRISO_Pack_RunNum, retstep=False)
         pctLEUVals = np.linspace(pctLEUFirst, pctLEULast, num=fuelMixRunNum, retstep=False)
         print("Enrichment Values (%):", enrichVals*100)
         print("Packing Factor Values: ", packFactorVals)
@@ -187,7 +187,7 @@ def matMixFunInput():
         while i < tRISO_Pack_RunNum:
             while j < fuelMixRunNum:
                 runNum += 1
-                print("Run number " + str(runNum))
+                print("\nRun number " + str(runNum))
                 # Results of Constants and Input Parameters
                 # Weight percent of Th in LEU mixture
                 pctTh = 1 - pctLEUVals[j]
@@ -450,25 +450,25 @@ def matMixFunInput():
 
         heatmap_Plot = sns.heatmap(reactMatValsOnly, center=0, cmap = "PiYG", 
                                    xticklabels = 
-                                   list(map(lambda packFactorVals :str(packFactorVals) + '%',
-                                   100*packFactorVals.round(2))), 
-                                   yticklabels = list(map(lambda pctLEUVals :str(pctLEUVals) + '%',
-                                   100*pctLEUVals.round(2))))
+                                   list(map(lambda pctLEUVals :str(pctLEUVals) + '%',
+                                   100*pctLEUVals.round(2))), 
+                                   yticklabels = list(map(lambda packFactorVals :str(packFactorVals) + '%',
+                                   100*packFactorVals.round(2))))
         for ind, label in enumerate(heatmap_Plot.get_xticklabels()):
-            label_num_1 = 2; # number of label iterations
+            label_num_1 = 5; # number of label iterations
             if ind % label_num_1 == 0:  # every nth label is kept
                 label.set_visible(True)
             else:
                 label.set_visible(False)
         for ind, label in enumerate(heatmap_Plot.get_yticklabels()):
-            label_num_2 = 2; # number of label iterations
+            label_num_2 = 5; # number of label iterations
             if ind % label_num_2 == 0:  # every nth label is kept
                 label.set_visible(True)
             else:
                 label.set_visible(False)
-        plt.ylabel("TOX Thorium Fraction (%)")
-        plt.xlabel("Particle Packing Values (%)")
-        plt.title("Reactivity as a Function of TRISO Packing Factor and Uranium Concentration in TOX Fuel")
+        plt.ylabel("Particle Packing Values (%)")
+        plt.xlabel("TOX Uranium Fraction (%)")
+        plt.title("Reactivity as a Function of TRISO Packing Factor and Uranium Mass Fraction in TOX Fuel (relative to Thorium)")
         plt.savefig('heatmap.png',bbox_inches='tight')
         plt.show()
         

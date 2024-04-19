@@ -301,6 +301,14 @@ def matMixFunInput():
         ## Source ##
         # create a point source
         # ref: https://openmc.discourse.group/t/cylindrical-geometry-more-than-95-of-external-source-sites-sampled-were-rejected/1432
+        # arrays to hold tally data
+        efilter_values = [0.0, 10, 14.0e6]
+        numEbins = len(efilter_values)-1
+        th232_cap_data_th = np.zeros()
+        u238_cap_data_th = np.zeros_like(th232_cap_data_th)
+        th232_cap_data_fast = np.zeros_like(th232_cap_data_th)
+        u238_cap_data_fast = np.zeros_like(th232_cap_data_th)
+        
         source = openmc.Source()
         rad_src = openmc.stats.Uniform(a=0, b=cyl_Radius)
         phi_src = openmc.stats.Uniform(a=0, b=2*math.pi)
