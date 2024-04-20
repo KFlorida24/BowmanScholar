@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<geometry>
+  <cell id="22" material="7" name="material_Geom" region="-28 27 -30 29 -32 31" universe="22"/>
+  <surface boundary="reflective" coeffs="-50.0" id="27" type="x-plane"/>
+  <surface boundary="reflective" coeffs="50.0" id="28" type="x-plane"/>
+  <surface boundary="reflective" coeffs="-50.0" id="29" type="y-plane"/>
+  <surface boundary="reflective" coeffs="50.0" id="30" type="y-plane"/>
+  <surface boundary="reflective" coeffs="-50.0" id="31" type="z-plane"/>
+  <surface boundary="reflective" coeffs="50.0" id="32" type="z-plane"/>
+</geometry>

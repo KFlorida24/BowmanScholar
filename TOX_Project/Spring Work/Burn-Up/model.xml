@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<model>
+  <materials>
+    <material depletable="true" id="1" name="PuProduct">
+      <density units="g/cc" value="19.84"/>
+      <nuclide ao="1.1133362390907544e-20" name="Pu236"/>
+      <nuclide ao="1.12057061931527e-22" name="Pu237"/>
+      <nuclide ao="1.5286485349526502e-08" name="Pu238"/>
+      <nuclide ao="4.0999055117749256e-06" name="Pu239"/>
+      <nuclide ao="4.730223793138017e-07" name="Pu240"/>
+      <nuclide ao="2.785463716056995e-07" name="Pu241"/>
+      <nuclide ao="2.2567681313758283e-08" name="Pu242"/>
+      <nuclide ao="1.10802702159493e-26" name="Pu243"/>
+      <nuclide ao="8.504879670720415e-14" name="Pu244"/>
+      <nuclide ao="2.5061803299372545e-32" name="Pu246"/>
+    </material>
+  </materials>
+  <geometry>
+    <cell id="20" material="1" name="Bare Critical Sphere" region="-20" universe="20"/>
+    <surface boundary="vacuum" coeffs="0 0 0 5.096168518066406" id="20" name="BCM" type="sphere"/>
+  </geometry>
+  <settings>
+    <run_mode>eigenvalue</run_mode>
+    <particles>5000</particles>
+    <batches>250</batches>
+    <inactive>50</inactive>
+    <output>
+      <tallies>false</tallies>
+    </output>
+  </settings>
+  </model>
